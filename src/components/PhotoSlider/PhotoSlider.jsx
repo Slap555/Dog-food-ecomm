@@ -98,6 +98,7 @@ const PhotoSlider = ({ images }) => {
               alert(`You clicked button for image ${currentIndex + 1}`)
             }
           >
+            {/* usenavigation use garna parxa ani onlick handler ma path rakhne */}
             Click Me
           </button>
         </div>
