@@ -42,13 +42,13 @@ const PhotoSlider = ({ images }) => {
   }, []);
 
   return (
-    <div className="relative w-full max-w-[80rem] mx-auto mt-10 rounded-lg">
+    <div className="relative  w-full max-w-[80rem] mx-auto mt-10 ">
       {/* Image */}
-      <div className="w-full overflow-hidden">
+      <div className="w-full overflow-hidden rounded-lg">
         <img
           src={images[currentIndex]}
           alt="carousel"
-          className={`w-full h-[30rem] object-cover rounded-lg fadeInDropImage ${
+          className={`w-full h-[30rem] object-cover fadeInDropImage ${
             isZoomed ? "zoom" : ""
           }`}
         />
