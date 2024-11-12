@@ -14,6 +14,8 @@ import Product from "./pages/admin/product/Product";
 import Blog from "./pages/admin/blog/Blog";
 import Order from "./pages/admin/order/Order";
 import "react-toastify/dist/ReactToastify.css";
+import LoginPage from "./pages/user/LoginPage";
+import SignUpPage from "./pages/user/SignUpPage";
 
 const router = createBrowserRouter([
   {
@@ -22,6 +24,8 @@ const router = createBrowserRouter([
     children: [
       { path: "/", element: <Homepage /> },
       { path: "/about-us", element: <AboutUsPage /> },
+      { path: "/login", element: <LoginPage /> },
+      { path: "/signup", element: <SignUpPage /> },
     ],
   },
   {

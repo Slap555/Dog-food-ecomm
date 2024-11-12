@@ -52,6 +52,7 @@ const ContactUsPage = () => {
           <FontAwesomeIcon icon={faWhatsapp} />
         </div>
       </div>
+
       <div className=" border-4 border-emerald-500 flex p-4 flex-col bg-slate-500 w-[35rem] h-[42rem] justify-center items-center">
         <form
           onSubmit={handleSubmit}

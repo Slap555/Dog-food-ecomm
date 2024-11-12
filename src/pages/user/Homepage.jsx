@@ -146,11 +146,11 @@ const Homepage = () => {
 
       <RecentArticlesSection />
 
-      <ContactUsPage />
       {/* short product showcase section */}
       <div>
         <ProductsSection />
       </div>
+      <ContactUsPage />
     </div>
   );
 };
