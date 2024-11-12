@@ -9,19 +9,22 @@ const LoginPage = () => {
     console.log(email, password);
   };
   return (
-    <div className="flex  items-center h-screen">
+    <div className="flex justify-center items-center h-screen">
       {/* Left Image Section */}
-      <div className="z-10 left-[10rem] relative flex  w-[40rem] h-[560px]">
+      <div
+        className="z-10 left-[10rem] justify-center relative w-[600px] h-[560px]
+        "
+      >
         <img
           src={image}
           alt="Login background"
-          className="object-cover rounded-l-lg w-full h-full"
+          className="object-cover  rounded-l-lg w-full h-full"
           style={{ clipPath: "polygon(0 0, 100% 0, 80% 100%, 0% 100%)" }}
         />
       </div>
 
       {/* Right Form Section */}
-      <div className=" flex flex-col justify-center items-center bg-slate-400 w-[800px] h-[560px] rounded-r-lg">
+      <div className="mr-[10rem] flex flex-col justify-center items-center bg-slate-400 w-[800px] h-[560px] rounded-r-lg">
         <div className="gap-20 flex p-4 flex-col w-[700px]  justify-center items-center">
           <form onSubmit={handleSubmit} className="flex flex-col gap-10 ">
             <h1 className="text-[40px] flex justify-center">Welcome Back!</h1>
