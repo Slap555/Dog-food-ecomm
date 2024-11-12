@@ -1,4 +1,8 @@
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import {
+  createBrowserRouter,
+  Navigate,
+  RouterProvider,
+} from "react-router-dom";
 import Dashboard from "./pages/admin/Dashboard";
 import AuthLayout from "./layout/AuthLayout";
 import UserLayout from "./layout/UserLayout";
@@ -9,6 +13,7 @@ import Category from "./pages/admin/category/Category";
 import Product from "./pages/admin/product/Product";
 import Blog from "./pages/admin/blog/Blog";
 import Order from "./pages/admin/order/Order";
+import "react-toastify/dist/ReactToastify.css";
 
 const router = createBrowserRouter([
   {
@@ -23,13 +28,17 @@ const router = createBrowserRouter([
     path: "/dashboard",
     element: <AuthLayout />,
     children: [
-      { index: true, element: <Dashboard /> },
+      { path: "", element: <Dashboard /> },
       { path: "account", element: <Account /> },
       { path: "category", element: <Category /> },
       { path: "products", element: <Product /> },
       { path: "blogs", element: <Blog /> },
       { path: "orders", element: <Order /> },
     ],
+  },
+  {
+    path: "*",
+    element: <Navigate to="/" />,
   },
 ]);
 

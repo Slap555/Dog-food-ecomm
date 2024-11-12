@@ -17,7 +17,7 @@ const Product = () => {
   if (isError) return <div>Error: {error.message}</div>;
 
   return (
-    <div className="p-5">
+    <div>
       <h2 className="text-2xl font-bold mb-4">Products</h2>
       <Table columns={columns} data={products} />
     </div>
