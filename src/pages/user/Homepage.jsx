@@ -6,6 +6,8 @@ import imageC from "../../assets/C.jpeg";
 import imageD from "../../assets/D.jpg";
 import imageE from "../../assets/E.jpg";
 import ProductsSection from "../../components/ProductsSection/ProductsSection";
+import RecentArticlesSection from "../../components/RecentArticlesSection";
+import ContactUsPage from "../../components/pages/ContactUsPage/ContactUsPage";
 
 const Homepage = () => {
   const images = [imageA, imageB, imageC, imageD, imageE];
