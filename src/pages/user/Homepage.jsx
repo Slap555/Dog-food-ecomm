@@ -1,13 +1,11 @@
 import React from "react";
-import PhotoSlider from "../PhotoSlider/PhotoSlider";
+import PhotoSlider from "../../components/PhotoSlider/PhotoSlider";
 import imageA from "../../assets/A.jpg";
 import imageB from "../../assets/B.jpg";
 import imageC from "../../assets/C.jpeg";
 import imageD from "../../assets/D.jpg";
 import imageE from "../../assets/E.jpg";
-import ProductsSection from "../ProductsSection/ProductsSection";
-import RecentArticlesSection from "../RecentArticlesSection";
-import ContactUsPage from "./ContactUsPage/ContactUsPage";
+import ProductsSection from "../../components/ProductsSection/ProductsSection";
 
 const Homepage = () => {
   const images = [imageA, imageB, imageC, imageD, imageE];
