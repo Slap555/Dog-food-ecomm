@@ -12,7 +12,7 @@ import ContactUsPage from "./ContactUsPage";
 const Homepage = () => {
   const images = [imageA, imageB, imageC, imageD, imageE];
   return (
-    <div className="flex flex-col gap-10">
+    <div className="flex flex-col gap-16">
       {/* photoslider */}
       <div>
         <PhotoSlider images={images} />
