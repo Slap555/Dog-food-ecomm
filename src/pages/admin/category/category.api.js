@@ -8,6 +8,9 @@ export const useFetchCategories = () => {
       const response = await axiosInstance.get("/categories");
       return response.data;
     },
+    staleTime: 1000 * 60 * 5,
+    cacheTime: 1000 * 60 * 30,
+    retry: 3,
   });
 };
 
@@ -19,6 +22,7 @@ export const useFetchCategoryById = (categoryId) => {
       return response.data;
     },
     enabled: !!categoryId,
+    retry: 3,
   });
 };
 

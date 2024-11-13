@@ -13,13 +13,11 @@ import Modal from "../../../components/ui/modal/Modal";
 import { toast } from "react-toastify";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
-import { useFetchCategories } from "../category/category.api";
 
 const blogSchema = z.object({
   title: z.string().min(1, "Title is required"),
-  content: z.string().min(1, "Content is required"),
   author: z.string().min(1, "Author is required"),
-  category: z.string().min(1, "Category is required"),
+  content: z.string().min(1, "Content is required"),
 });
 
 const Blog = () => {
@@ -27,18 +25,6 @@ const Blog = () => {
   const createMutation = useCreateBlog();
   const deleteMutation = useDeleteBlog();
   const updateMutation = useUpdateBlog();
-
-  const { data: categories } = useFetchCategories();
-
-  const categoryOptions = useMemo(() => {
-    if (!categories) return [];
-    return categories.map((category) => ({
-      value: category._id,
-      label: category.name,
-    }));
-  }, [categories]);
-
-  console.log(categoryOptions, categories);
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
@@ -56,7 +42,6 @@ const Blog = () => {
 
   const columns = [
     { header: "Title", accessorKey: "title" },
-    { header: "Category", accessorKey: "category.name" },
     { header: "Content", accessorKey: "content" },
     {
       header: "Actions",
@@ -93,9 +78,8 @@ const Blog = () => {
     setCurrentBlog(blog);
 
     setValue("title", blog.title);
-    setValue("content", blog.content);
     setValue("author", blog.author);
-    setValue("category", blog.category);
+    setValue("content", blog.content);
   };
 
   const handleDeleteBlog = (blogId) => {
@@ -169,23 +153,6 @@ const Blog = () => {
             />
             {errors.title && (
               <p className="text-red-500 text-sm">{errors.title.message}</p>
-            )}
-          </div>
-          <div>
-            <label className="block text-sm font-medium">Category</label>
-            <select
-              {...register("category")}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"
-            >
-              <option value="">Select a category</option>
-              {categoryOptions.map((cat) => (
-                <option key={cat.value} value={cat.value}>
-                  {cat.label}
-                </option>
-              ))}
-            </select>
-            {errors.category && (
-              <p className="text-red-500 text-sm">{errors.category.message}</p>
             )}
           </div>
           <div>

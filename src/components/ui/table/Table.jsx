@@ -47,7 +47,9 @@ const Table = ({ columns, data, pageSize = 10 }) => {
             </tr>
           ))}
         </thead>
-        {data.length <= 0 && <div className="p-2">No Data Available</div>}
+        {data.length <= 0 && (
+          <div className="p-2 text-nowrap">No Data Available</div>
+        )}
         <tbody>
           {table.getRowModel().rows.map((row) => (
             <tr
