@@ -18,7 +18,7 @@ const Orders = () => {
 
   return (
     <div>
-      <h2 className="text-2xl font-bold mb-4">Products</h2>
+      <h2 className="text-2xl font-bold mb-4">Orders</h2>
       <Table columns={columns} data={products} />
     </div>
   );

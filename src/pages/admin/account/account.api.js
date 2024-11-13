@@ -8,6 +8,9 @@ export const useFetchUsers = () => {
       const response = await axiosInstance.get("/user");
       return response.data;
     },
+    staleTime: 1000 * 60 * 5,
+    cacheTime: 1000 * 60 * 30,
+    retry: 3,
   });
 };
 
