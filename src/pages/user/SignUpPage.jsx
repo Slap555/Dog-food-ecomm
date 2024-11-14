@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import image from "../../assets/C.jpeg";
 
 const SignUpPage = () => {
   const [firstName, setFirstName] = useState("");
@@ -45,28 +46,19 @@ const SignUpPage = () => {
   return (
     <div className="flex justify-center items-center min-h-screen">
       <div className="flex items-center bg-slate-200 justify-center w-[70rem]">
-        <div className="flex flex-col items-center bg-slate-400 w-[20rem] gap-20 h-[35rem]">
-          <div className="flex flex-col mt-2 items-center">
-            <h1 className="text-[2rem]">Register</h1>
-            <h2 className="text-[1.2rem]">Create a new account</h2>
-          </div>
-          <div>
-            <ul className="flex flex-col">
-              <li className="flex items-center gap-2">
-                <div className="rounded-full w-4 h-4 bg-white" />
-                <h1 className="text-[1.2rem]">Personal Details</h1>
-              </li>
-              <div className="border-l-4 h-28 ml-[6px]" />
-              <li className="flex items-center gap-2">
-                <div className="rounded-full w-4 h-4 bg-white" />
-                <h1 className="text-[1.2rem]">Search Profile Data</h1>
-              </li>
-              <div className="border-l-4 h-28 ml-[6px]" />
-              <li className="flex items-center gap-2">
-                <div className="rounded-full w-4 h-4 bg-white" />
-                <h1 className="text-[1.2rem]">User Profile Data</h1>
-              </li>
-            </ul>
+        <div
+          className="z-10 flex flex-col items-center w-[20rem] gap-20 h-[35rem] justify-center"
+          style={{
+            backgroundImage: `url(${image})`,
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+          }}
+        >
+          <div className="flex flex-col mt-2 items-center text-blue-800">
+            <h1 className="text-[2rem] font-bold">Register</h1>
+            <h2 className="text-[1.2rem] font-semibold">
+              Create a new account
+            </h2>
           </div>
         </div>
 

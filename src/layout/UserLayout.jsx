@@ -7,11 +7,11 @@ import Navbar from "../components/common/navbar/Navbar";
 const UserLayout = () => {
   return (
     <>
-      {/* <Navbar /> */}
+      <Navbar />
       <div className="flex flex-col gap-10">
         <Outlet />
       </div>
-      {/* <Footer /> */}
+      <Footer />
     </>
   );
 };
