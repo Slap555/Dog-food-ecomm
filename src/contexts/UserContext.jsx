@@ -6,42 +6,41 @@ const UserContext = createContext(undefined);
 
 export const UserProvider = ({ children }) => {
   const [user, setUser] = useState(null);
-  const [decodedToken, setDecodedToken] = useState(null);
+  const [token, setToken] = useState(null);
 
-  const decodeToken = (accessToken) => {
+  const handleToken = (token) => {
     try {
-      const decoded = jwtDecode(accessToken);
-      setDecodedToken(decoded);
+      const decoded = jwtDecode(token);
+      setUser(decoded);
+      setToken(token);
     } catch (error) {
       console.error("Failed to decode token", error);
-      setDecodedToken(null);
+      setUser(null);
+      setToken(null);
     }
   };
 
   useEffect(() => {
-    const storedUser = getItem("user");
+    const storedToken = getItem("token");
 
-    if (storedUser) {
-      setUser(storedUser);
-      decodeToken(storedUser?.accessToken);
+    if (storedToken) {
+      handleToken(storedToken);
     }
   }, []);
 
-  const handleSetUser = (user) => {
-    setUser(user);
-    if (user) {
-      setItem("user", user);
-      decodeToken(user.accessToken);
+  const handleSetUser = (token) => {
+    if (token) {
+      setItem("token", token);
+      handleToken(token);
     } else {
-      removeItem("user");
-      setDecodedToken(null);
+      removeItem("token");
+      setUser(null);
+      setToken(null);
     }
   };
 
   return (
-    <UserContext.Provider
-      value={{ user, setUser: handleSetUser, decodedToken }}
-    >
+    <UserContext.Provider value={{ user, setUser: handleSetUser, token }}>
       {children}
     </UserContext.Provider>
   );
