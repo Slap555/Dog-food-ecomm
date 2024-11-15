@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
 import image from "../../assets/C.jpeg";
 
 const SignUpPage = () => {
@@ -9,13 +11,14 @@ const SignUpPage = () => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [errors, setErrors] = useState({});
+  const navigate = useNavigate();
 
   const validateEmail = (email) => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return emailRegex.test(email);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     const newErrors = {};
@@ -31,14 +34,22 @@ const SignUpPage = () => {
     if (Object.keys(newErrors).length > 0) {
       setErrors(newErrors);
     } else {
-      // Form is valid, handle successful form submission here
-      console.log("Form submitted:", {
-        firstName,
-        lastName,
-        email,
-        password,
-        confirmPassword,
-      });
+      try {
+        const response = await axios.post(
+          "http://localhost:5000/api/auth/register",
+          {
+            firstName,
+            lastName,
+            phone,
+            email,
+            password,
+          }
+        );
+        console.log("Form submitted:", response.data);
+        navigate("/login");
+      } catch (error) {
+        console.error("Error submitting form:", error);
+      }
       setErrors({});
     }
   };
@@ -74,11 +85,9 @@ const SignUpPage = () => {
               placeholder="First Name"
               className="w-[406px] border-2 p-3 text-[1.2rem] border-black focus:outline-none mb-2 rounded-lg"
             />
-            {/* {errors.firstName && (
-              <span className="relative text-red-500 text-[0.8rem] max-h-[1px]">
-                {errors.firstName}
-              </span>
-            )} */}
+            {errors.firstName && (
+              <span className="text-red-500">{errors.firstName}</span>
+            )}
 
             <input
               type="text"
@@ -87,11 +96,9 @@ const SignUpPage = () => {
               placeholder="Last Name"
               className="w-[406px] border-2 p-3 text-[1.2rem] border-black focus:outline-none rounded-lg mb-2"
             />
-            {/* {errors.lastName && (
-              <span className="text-red-500 text-[0.8rem] max-h-[10px]">
-                {errors.lastName}
-              </span>
-            )} */}
+            {errors.lastName && (
+              <span className="text-red-500">{errors.lastName}</span>
+            )}
 
             <input
               type="tel"
@@ -117,9 +124,9 @@ const SignUpPage = () => {
               placeholder="Password"
               className="w-[406px] border-2 p-3 text-[1.2rem] border-black focus:outline-none mb-2 rounded-lg"
             />
-            {/* {errors.password && (
+            {errors.password && (
               <p className="text-red-500">{errors.password}</p>
-            )} */}
+            )}
 
             <input
               type="password"
@@ -128,11 +135,9 @@ const SignUpPage = () => {
               placeholder="Confirm Password"
               className="w-[406px] border-2 p-3 text-[1.2rem] border-black focus:outline-none mb-2 rounded-lg"
             />
-            {/* {errors.confirmPassword && (
-              <span className="text-red-500 text-[0.8rem] max-h-[10px]">
-                {errors.confirmPassword}
-              </span>
-            )} */}
+            {errors.confirmPassword && (
+              <span className="text-red-500">{errors.confirmPassword}</span>
+            )}
 
             <div className="flex justify-center">
               <button

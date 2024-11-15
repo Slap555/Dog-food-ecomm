@@ -1,12 +1,23 @@
 import React, { useState } from "react";
 import image from "../../assets/A.jpg";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const LoginPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const handleSubmit = (e) => {
+  const navigate = useNavigate();
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(email, password);
+
+    try {
+      const response = await axios.get("http://localhost:5000/api/user/");
+      console.log(response);
+      navigate("/register");
+    } catch (error) {
+      console.error("Error submitting form:", error);
+    }
   };
   return (
     <div className="flex justify-center items-center h-screen">

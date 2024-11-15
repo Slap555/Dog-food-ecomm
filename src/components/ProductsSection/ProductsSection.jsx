@@ -40,7 +40,7 @@ const ProductsSection = () => {
           {products.map((item, index) => (
             <div
               key={index}
-              className="flex flex-col w-[20rem] overflow-hidden items-center rounded-lg gap-2 bg-blue-300 hover:shadow-[0px_10px_20px_rgba(0,_0,_0,_0.5)] transition-shadow duration-300"
+              className="flex flex-col w-[20rem] overflow-hidden items-center rounded-lg gap-2 bg-white hover:shadow-[0px_10px_20px_rgba(0,_0,_0,_0.5)] transition-shadow duration-300"
             >
               <div className="mt-4 w-[16rem] h-[16rem] rounded-md overflow-hidden relative">
                 <img
@@ -49,7 +49,7 @@ const ProductsSection = () => {
                 />
               </div>
               <h1 className="text-[1.2rem]">{item.name}</h1>
-              <button className="border-2 mb-2 border-black px-2 rounded-md">
+              <button className=" mb-4 bg-[#8EC0EF] py-1 px-2 rounded-md">
                 Buy Now
               </button>
             </div>

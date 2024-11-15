@@ -1,9 +1,11 @@
 import React from "react";
 import "./Navbar.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 
 const Navbar = () => {
   return (
-    <nav className="flex flex-col w-full p-5 bg-slate-400">
+    <nav className="flex flex-col w-full p-5  text-[] font-medium">
       <ul className="flex w-full justify-between items-center">
         <div className="flex">
           <li className="nav-link">LOGO</li>
@@ -16,7 +18,9 @@ const Navbar = () => {
           <li className="nav-link">Order Details</li>
           <li className="nav-link">Contact</li>
           <li className="nav-link">FAQ</li>
-          <li className="nav-link">!</li>
+          <li className="nav-link ">
+            <FontAwesomeIcon icon={faMagnifyingGlass} />
+          </li>
           <li className="nav-link">
             <a href="/login">Login</a>
           </li>

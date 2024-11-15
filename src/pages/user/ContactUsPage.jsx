@@ -5,7 +5,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useState } from "react";
-import image from "../../assets/A.jpg";
+import image from "../../assets/sky.jpg";
 import {
   faFacebook,
   faInstagram,
@@ -24,9 +24,15 @@ const ContactUsPage = () => {
   };
 
   return (
-    <div className="flex justify-center items-center">
-      {/*  */}
-      <div className=" rounded-lg relative left-10 z-10 flex flex-col gap-10 bg-slate-400 w-[15rem] h-[30rem]">
+    <div
+      className="flex justify-center items-center py-10"
+      style={{
+        backgroundImage: `url(${image})`,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+      }}
+    >
+      <div className=" rounded-lg relative left-10 z-10 flex flex-col gap-10 bg-[#9ac3df] w-[15rem] h-[30rem]">
         <h1 className="text-[1.8rem] flex mt-5 justify-center">Contact Us</h1>
         <div className="flex flex-col gap-4">
           <div className="flex items-center justify-center text-[1.2rem] gap-2">
@@ -53,7 +59,7 @@ const ContactUsPage = () => {
         </div>
       </div>
 
-      <div className=" border-4 border-emerald-500 flex p-4 flex-col bg-slate-500 w-[35rem] h-[42rem] justify-center items-center">
+      <div className=" border-4 border-white flex p-4 flex-col bg-[#2987c5] w-[35rem] h-[42rem] justify-center items-center">
         <form
           onSubmit={handleSubmit}
           className="flex items-center flex-col w-[25rem] gap-10"

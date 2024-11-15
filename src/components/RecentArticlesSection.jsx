@@ -34,14 +34,16 @@ const RecentArticlesSection = () => {
           {articles.map((item, index) => (
             <div
               key={index}
-              className=" bg-slate-400 rounded-md h-[22rem] p-5 flex flex-col w-[20rem] gap-4"
+              className=" bg-white rounded-md h-[22rem] p-5 flex flex-col w-[20rem] gap-4"
             >
               <div>
                 <h1 className="text-[1.4rem]">{item.title}</h1>
-                <span>Posted on: {item.date}</span>
+                <span className="border-b-2 border-black">
+                  Posted on: {item.date}
+                </span>
               </div>
               <span>{item.desc}</span>
-              <button className="bg-white rounded-lg px-2 w-[6rem]">
+              <button className="bg-[#8EC0EF] rounded-lg px-2 py-1 w-[6rem] cursor-pointer">
                 Read more
               </button>
             </div>
