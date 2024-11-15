@@ -2,6 +2,8 @@ import React from "react";
 import { useDeleteProduct, useFetchProducts } from "./product.api";
 import Table from "../../../components/ui/table/Table";
 import { Link } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
 
 const Product = () => {
   const { data: products, isLoading, isError, error } = useFetchProducts();
@@ -22,7 +24,6 @@ const Product = () => {
     { header: "Name", accessorKey: "name" },
     { header: "Category", accessorKey: "category.name" },
     { header: "Stock", accessorKey: "stock" },
-    { header: "Description", accessorKey: "description" },
     { header: "Price", accessorKey: "price" },
     {
       header: "Actions",
@@ -30,7 +31,7 @@ const Product = () => {
       cell: ({ row }) => (
         <div className="flex space-x-2">
           <Link
-            to={`/products/edit/${row.original._id}`}
+            to={`/dashboard/products/edit/${row.original._id}`}
             className="bg-yellow-500 hover:bg-yellow-600 text-white font-semibold py-1 px-2 rounded-lg"
           >
             Edit
@@ -46,7 +47,8 @@ const Product = () => {
     },
   ];
 
-  if (isLoading) return <div>Loading...</div>;
+  if (isLoading)
+    return <div className="text-center text-gray-500">Loading...</div>;
   if (isError) return <div>Error: {error.message}</div>;
 
   return (
@@ -57,7 +59,7 @@ const Product = () => {
           to="/dashboard/products/add"
           className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg"
         >
-          Add Product
+          <FontAwesomeIcon icon={faPlus} /> Product
         </Link>
       </div>
       <Table columns={columns} data={products} />

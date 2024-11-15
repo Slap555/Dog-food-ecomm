@@ -14,6 +14,17 @@ export const useFetchProducts = () => {
   });
 };
 
+export const useFetchProductById = (id) => {
+  return useQuery({
+    queryKey: ["products", id],
+    queryFn: async () => {
+      const response = await axiosInstance.get(`/products/${id}`);
+      return response.data;
+    },
+    enabled: !!id,
+  });
+};
+
 export const useDeleteProduct = () => {
   const queryClient = useQueryClient();
 
@@ -48,23 +59,8 @@ export const useUpdateProduct = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: async ({
-      productId,
-      name,
-      image,
-      category,
-      price,
-      stock,
-      description,
-    }) => {
-      await axiosInstance.put(`/products/${productId}`, {
-        name,
-        image,
-        category,
-        price,
-        stock,
-        description,
-      });
+    mutationFn: async ({ productId, formData }) => {
+      await axiosInstance.put(`/products/${productId}`, formData);
     },
     onSuccess: () => {
       queryClient.invalidateQueries(["products"]);

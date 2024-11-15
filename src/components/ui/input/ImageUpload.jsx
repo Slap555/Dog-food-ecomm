@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useController } from "react-hook-form";
 
 const ImageUpload = ({ control, name, label, required }) => {
@@ -11,15 +11,23 @@ const ImageUpload = ({ control, name, label, required }) => {
     rules: { required: required ? "Image is required" : false },
   });
 
-  const [preview, setPreview] = useState(
-    value ? URL.createObjectURL(value[0]) : null
-  );
+  const [preview, setPreview] = useState(null);
+
+  useEffect(() => {
+    // Set initial preview if the value is a string (URL)
+    if (typeof value === "string") {
+      setPreview(value);
+    } else if (value instanceof FileList && value[0]) {
+      // If value is a FileList, generate a preview
+      setPreview(URL.createObjectURL(value[0]));
+    }
+  }, [value]);
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     if (file) {
-      onChange(e.target.files);
-      setPreview(URL.createObjectURL(file));
+      onChange(e.target.files); // Update field value with the new file
+      setPreview(URL.createObjectURL(file)); // Update preview
     }
   };
 
@@ -27,8 +35,8 @@ const ImageUpload = ({ control, name, label, required }) => {
     e.preventDefault();
     const file = e.dataTransfer.files[0];
     if (file) {
-      onChange([file]);
-      setPreview(URL.createObjectURL(file));
+      onChange([file]); // Update field value with the new file
+      setPreview(URL.createObjectURL(file)); // Update preview
     }
   };
 
@@ -50,7 +58,7 @@ const ImageUpload = ({ control, name, label, required }) => {
           <img
             src={preview}
             alt="Preview"
-            className="object-cover w-full h-full rounded-lg"
+            className="object-contain w-full h-full rounded-lg"
           />
         ) : (
           <span className="text-gray-500">
