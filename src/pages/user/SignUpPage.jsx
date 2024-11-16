@@ -1,25 +1,29 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import image from "../../assets/C.jpeg";
 
 const SignUpPage = () => {
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [phone, setPhone] = useState("");
+  const [firstname, setFirstname] = useState("");
+  const [lastname, setLastname] = useState("");
+  const [contact, setContact] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [errors, setErrors] = useState({});
+  const navigate = useNavigate();
 
   const validateEmail = (email) => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return emailRegex.test(email);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     const newErrors = {};
-    if (!firstName.trim()) newErrors.firstName = "First name is required";
-    if (!lastName.trim()) newErrors.lastName = "Last name is required";
+    if (!firstname.trim()) newErrors.firstname = "First name is required";
+    if (!lastname.trim()) newErrors.lastname = "Last name is required";
     if (email && !validateEmail(email))
       newErrors.email = "Invalid email format";
     if (password.length < 6)
@@ -30,14 +34,22 @@ const SignUpPage = () => {
     if (Object.keys(newErrors).length > 0) {
       setErrors(newErrors);
     } else {
-      // Form is valid, handle successful form submission here
-      console.log("Form submitted:", {
-        firstName,
-        lastName,
-        email,
-        password,
-        confirmPassword,
-      });
+      try {
+        const response = await axios.post(
+          "http://localhost:5000/api/auth/register",
+          {
+            firstname,
+            lastname,
+            password,
+            contact,
+            email,
+          }
+        );
+        console.log("Form submitted:", response.data);
+        navigate("/login");
+      } catch (error) {
+        console.error("Error submitting form:", error);
+      }
       setErrors({});
     }
   };
@@ -45,28 +57,19 @@ const SignUpPage = () => {
   return (
     <div className="flex justify-center items-center min-h-screen">
       <div className="flex items-center bg-slate-200 justify-center w-[70rem]">
-        <div className="flex flex-col items-center bg-slate-400 w-[20rem] gap-20 h-[35rem]">
-          <div className="flex flex-col mt-2 items-center">
-            <h1 className="text-[2rem]">Register</h1>
-            <h2 className="text-[1.2rem]">Create a new account</h2>
-          </div>
-          <div>
-            <ul className="flex flex-col">
-              <li className="flex items-center gap-2">
-                <div className="rounded-full w-4 h-4 bg-white" />
-                <h1 className="text-[1.2rem]">Personal Details</h1>
-              </li>
-              <div className="border-l-4 h-28 ml-[6px]" />
-              <li className="flex items-center gap-2">
-                <div className="rounded-full w-4 h-4 bg-white" />
-                <h1 className="text-[1.2rem]">Search Profile Data</h1>
-              </li>
-              <div className="border-l-4 h-28 ml-[6px]" />
-              <li className="flex items-center gap-2">
-                <div className="rounded-full w-4 h-4 bg-white" />
-                <h1 className="text-[1.2rem]">User Profile Data</h1>
-              </li>
-            </ul>
+        <div
+          className="z-10 flex flex-col items-center w-[20rem] gap-20 h-[35rem] justify-center"
+          style={{
+            backgroundImage: `url(${image})`,
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+          }}
+        >
+          <div className="flex flex-col mt-2 items-center text-blue-800">
+            <h1 className="text-[2rem] font-bold">Register</h1>
+            <h2 className="text-[1.2rem] font-semibold">
+              Create a new account
+            </h2>
           </div>
         </div>
 
@@ -77,35 +80,31 @@ const SignUpPage = () => {
           >
             <input
               type="text"
-              value={firstName}
-              onChange={(e) => setFirstName(e.target.value)}
+              value={firstname}
+              onChange={(e) => setFirstname(e.target.value)}
               placeholder="First Name"
               className="w-[406px] border-2 p-3 text-[1.2rem] border-black focus:outline-none mb-2 rounded-lg"
             />
-            {/* {errors.firstName && (
-              <span className="relative text-red-500 text-[0.8rem] max-h-[1px]">
-                {errors.firstName}
-              </span>
-            )} */}
+            {errors.firstname && (
+              <span className="text-red-500">{errors.firstname}</span>
+            )}
 
             <input
               type="text"
-              value={lastName}
-              onChange={(e) => setLastName(e.target.value)}
+              value={lastname}
+              onChange={(e) => setLastname(e.target.value)}
               placeholder="Last Name"
               className="w-[406px] border-2 p-3 text-[1.2rem] border-black focus:outline-none rounded-lg mb-2"
             />
-            {/* {errors.lastName && (
-              <span className="text-red-500 text-[0.8rem] max-h-[10px]">
-                {errors.lastName}
-              </span>
-            )} */}
+            {errors.lastname && (
+              <span className="text-red-500">{errors.lastname}</span>
+            )}
 
             <input
               type="tel"
-              value={phone}
-              onChange={(e) => setPhone(e.target.value)}
-              placeholder="Phone Number"
+              value={contact}
+              onChange={(e) => setContact(e.target.value)}
+              placeholder="contact Number"
               className="w-[406px] border-2 p-3 text-[1.2rem] border-black focus:outline-none mb-2 rounded-lg"
             />
 
@@ -125,9 +124,9 @@ const SignUpPage = () => {
               placeholder="Password"
               className="w-[406px] border-2 p-3 text-[1.2rem] border-black focus:outline-none mb-2 rounded-lg"
             />
-            {/* {errors.password && (
+            {errors.password && (
               <p className="text-red-500">{errors.password}</p>
-            )} */}
+            )}
 
             <input
               type="password"
@@ -136,11 +135,9 @@ const SignUpPage = () => {
               placeholder="Confirm Password"
               className="w-[406px] border-2 p-3 text-[1.2rem] border-black focus:outline-none mb-2 rounded-lg"
             />
-            {/* {errors.confirmPassword && (
-              <span className="text-red-500 text-[0.8rem] max-h-[10px]">
-                {errors.confirmPassword}
-              </span>
-            )} */}
+            {errors.confirmPassword && (
+              <span className="text-red-500">{errors.confirmPassword}</span>
+            )}
 
             <div className="flex justify-center">
               <button

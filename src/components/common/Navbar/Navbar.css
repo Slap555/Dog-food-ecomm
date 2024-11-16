@@ -1,3 +1,8 @@
 .nav-link {
   @apply flex text-[20px];
+  @apply items-center;
+  @apply cursor-pointer;
+}
+.nav-link:hover {
+  @apply text-[#3087ce];
 }

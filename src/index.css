@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+body {
+  @apply bg-[#8EC0EF];
+  font-family: "Roboto", serif;
+}
 .loader {
   border: 8px solid #f3f3f3; /* Light gray */
   border-top: 8px solid #3498db; /* Blue */
