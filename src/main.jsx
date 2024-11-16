@@ -4,6 +4,7 @@ import "./index.css";
 import App from "./App.jsx";
 import { UserProvider } from "./contexts/UserContext.jsx";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import "react-toastify/dist/ReactToastify.css";
 
 const queryClient = new QueryClient();
 
