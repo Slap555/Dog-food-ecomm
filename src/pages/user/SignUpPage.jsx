@@ -4,9 +4,9 @@ import axios from "axios";
 import image from "../../assets/C.jpeg";
 
 const SignUpPage = () => {
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [phone, setPhone] = useState("");
+  const [firstname, setFirstname] = useState("");
+  const [lastname, setLastname] = useState("");
+  const [contact, setContact] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -22,8 +22,8 @@ const SignUpPage = () => {
     e.preventDefault();
 
     const newErrors = {};
-    if (!firstName.trim()) newErrors.firstName = "First name is required";
-    if (!lastName.trim()) newErrors.lastName = "Last name is required";
+    if (!firstname.trim()) newErrors.firstname = "First name is required";
+    if (!lastname.trim()) newErrors.lastname = "Last name is required";
     if (email && !validateEmail(email))
       newErrors.email = "Invalid email format";
     if (password.length < 6)
@@ -38,11 +38,11 @@ const SignUpPage = () => {
         const response = await axios.post(
           "http://localhost:5000/api/auth/register",
           {
-            firstName,
-            lastName,
-            phone,
-            email,
+            firstname,
+            lastname,
             password,
+            contact,
+            email,
           }
         );
         console.log("Form submitted:", response.data);
@@ -80,31 +80,31 @@ const SignUpPage = () => {
           >
             <input
               type="text"
-              value={firstName}
-              onChange={(e) => setFirstName(e.target.value)}
+              value={firstname}
+              onChange={(e) => setFirstname(e.target.value)}
               placeholder="First Name"
               className="w-[406px] border-2 p-3 text-[1.2rem] border-black focus:outline-none mb-2 rounded-lg"
             />
-            {errors.firstName && (
-              <span className="text-red-500">{errors.firstName}</span>
+            {errors.firstname && (
+              <span className="text-red-500">{errors.firstname}</span>
             )}
 
             <input
               type="text"
-              value={lastName}
-              onChange={(e) => setLastName(e.target.value)}
+              value={lastname}
+              onChange={(e) => setLastname(e.target.value)}
               placeholder="Last Name"
               className="w-[406px] border-2 p-3 text-[1.2rem] border-black focus:outline-none rounded-lg mb-2"
             />
-            {errors.lastName && (
-              <span className="text-red-500">{errors.lastName}</span>
+            {errors.lastname && (
+              <span className="text-red-500">{errors.lastname}</span>
             )}
 
             <input
               type="tel"
-              value={phone}
-              onChange={(e) => setPhone(e.target.value)}
-              placeholder="Phone Number"
+              value={contact}
+              onChange={(e) => setContact(e.target.value)}
+              placeholder="contact Number"
               className="w-[406px] border-2 p-3 text-[1.2rem] border-black focus:outline-none mb-2 rounded-lg"
             />
 
