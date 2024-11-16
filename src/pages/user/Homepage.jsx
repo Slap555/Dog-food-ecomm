@@ -1,5 +1,6 @@
 import React from "react";
 import PhotoSlider from "../../components/PhotoSlider/PhotoSlider";
+import image from "../../assets/dog.jpg";
 import imageA from "../../assets/A.jpg";
 import imageB from "../../assets/B.jpg";
 import imageC from "../../assets/C.jpeg";
@@ -12,7 +13,7 @@ import ContactUsPage from "./ContactUsPage";
 const Homepage = () => {
   const images = [imageA, imageB, imageC, imageD, imageE];
   return (
-    <div className="flex flex-col gap-16">
+    <div className="flex flex-col gap-16 ">
       {/* photoslider */}
       <div>
         <PhotoSlider images={images} />
@@ -34,7 +35,7 @@ const Homepage = () => {
             <span className="text-[1.1rem]">
               Sustainable,customizable, healthy.
             </span>
-            <div className="w-[8rem] border-b-2 border-black" />
+            <div className="w-[8rem] border-b-2 border-white" />
           </div>
           <h2 className="text-[1.1rem]">
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Laborum
@@ -42,15 +43,22 @@ const Homepage = () => {
             similique voluptatum expedita ab culpa excepturi. Unde qui quis at
             consectetur! Doloremque, dolorum ratione.
           </h2>
-          <button className=" bg-slate-400 border-2 rounded-md w-[10rem] p-2 justify-center">
+          <button className=" bg-[#cfe9ff] text-[#2fa4d2] hover:shadow-[#6192a6] hover:shadow-lg font-semibold rounded-md w-[10rem] p-2 justify-center">
             Know more
           </button>
         </div>
       </div>
 
       {/* short description about our company */}
-      <div className="flex justify-center items-center">
-        <div className="flex justify-center text-center flex-col gap-8 w-[50rem]">
+      <div
+        className="flex justify-center items-center bg-white py-16"
+        style={{
+          backgroundImage: `url(${image})`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+        }}
+      >
+        <div className="flex justify-center text-center flex-col gap-8 w-[50rem] text-[#e7edf1] font-semibold">
           <h1 className="flex justify-center text-[1.5rem]">
             About <b className="ml-2"> Lekali Dog Chew Nepal</b>
           </h1>
@@ -110,13 +118,13 @@ const Homepage = () => {
         </div>
 
         <div className="flex items-center">
-          <img src={imageA} className="w-[30rem] h-[20rem] " />
+          <img src={imageA} className="w-[30rem] h-[20rem] rounded-md" />
         </div>
       </div>
 
       <div className="flex justify-center gap-20">
         <div className="flex items-center">
-          <img src={imageA} className="w-[30rem] h-[20rem]" />
+          <img src={imageA} className="w-[30rem] h-[20rem] rounded-md" />
         </div>
         <div className="flex flex-col w-[30rem]">
           <h1 className="text-[2rem]">
@@ -147,8 +155,11 @@ const Homepage = () => {
       <RecentArticlesSection />
 
       {/* short product showcase section */}
-      <div>
+      <div className=" flex flex-col justify-center items-center">
         <ProductsSection />
+        <button className="text-center my-6 bg-[#ffff]  p-2 w-40 rounded-md">
+          View More
+        </button>
       </div>
       <ContactUsPage />
     </div>
