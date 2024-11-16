@@ -18,10 +18,6 @@ const AuthLayout = () => {
     }
   }, [user, token, navigate]);
 
-  if (!user) {
-    return <Loading />;
-  }
-
   return (
     <div className="flex min-h-screen">
       <Sidebar />
