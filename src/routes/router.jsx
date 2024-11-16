@@ -12,6 +12,7 @@ import LoginPage from "../pages/user/LoginPage";
 import SignUpPage from "../pages/user/SignUpPage";
 import Dashboard from "../pages/admin/Dashboard";
 import AddProduct from "../pages/admin/product/AddProduct";
+import OrderDetail from "../pages/admin/order/OrderDetail";
 
 export const router = createBrowserRouter([
   { path: "/login", element: <LoginPage /> },
@@ -33,8 +34,10 @@ export const router = createBrowserRouter([
       { path: "category", element: <Category /> },
       { path: "products", element: <Product /> },
       { path: "products/add", element: <AddProduct /> },
+      { path: "products/edit/:id", element: <AddProduct /> },
       { path: "blogs", element: <Blog /> },
       { path: "orders", element: <Orders /> },
+      { path: "orders/:orderId", element: <OrderDetail /> },
     ],
   },
   {

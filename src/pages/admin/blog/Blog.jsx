@@ -96,7 +96,7 @@ const Blog = () => {
   const onSubmit = (data) => {
     if (isEditing && currentBlog) {
       updateMutation.mutate(
-        { blogId: currentBlog.id, updatedBlog: data },
+        { blogId: currentBlog._id, updatedBlog: data },
         {
           onSuccess: () => {
             setIsModalOpen(false);
@@ -122,7 +122,8 @@ const Blog = () => {
     }
   };
 
-  if (isLoading) return <div>Loading...</div>;
+  if (isLoading)
+    return <div className="text-center text-gray-500">Loading...</div>;
   if (isError) return <div>Error: {error.message}</div>;
 
   return (
@@ -133,7 +134,7 @@ const Blog = () => {
           onClick={handleAddBlog}
           className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg"
         >
-          <FontAwesomeIcon icon={faPlus} /> Add Blog
+          <FontAwesomeIcon icon={faPlus} /> Blog
         </button>
       </div>
       <Table columns={columns} data={blogs} />
