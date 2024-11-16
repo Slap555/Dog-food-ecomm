@@ -13,6 +13,7 @@ import Modal from "../../../components/ui/modal/Modal";
 import { toast } from "react-toastify";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import { useUser } from "../../../contexts/UserContext";
 
 const blogSchema = z.object({
   title: z.string().min(1, "Title is required"),
@@ -29,6 +30,8 @@ const Blog = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const [currentBlog, setCurrentBlog] = useState(null);
+
+  const { setUser } = useUser();
 
   const {
     register,
@@ -94,6 +97,7 @@ const Blog = () => {
   };
 
   const onSubmit = (data) => {
+    setUser("afasfdsfafaf");
     if (isEditing && currentBlog) {
       updateMutation.mutate(
         { blogId: currentBlog._id, updatedBlog: data },
