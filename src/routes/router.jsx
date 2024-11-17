@@ -13,10 +13,12 @@ import SignUpPage from "../pages/user/SignUpPage";
 import Dashboard from "../pages/admin/Dashboard";
 import AddProduct from "../pages/admin/product/AddProduct";
 import OrderDetail from "../pages/admin/order/OrderDetail";
+import ForgotPasswordPage from "../pages/user/ForgotPasswordPage";
 
 export const router = createBrowserRouter([
   { path: "/login", element: <LoginPage /> },
   { path: "/signup", element: <SignUpPage /> },
+  { path: "/forgot-pw", element: <ForgotPasswordPage /> },
   {
     path: "/",
     element: <UserLayout />,

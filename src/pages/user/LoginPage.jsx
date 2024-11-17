@@ -23,9 +23,10 @@ const LoginPage = () => {
         }
       );
 
-      const token = response.data.token; // Assuming backend returns a token
-      setUser(token); // Set token and user in context
-      navigate("/"); // Navigate to dashboard or another page
+      const token = response.data.accessToken;
+      setUser(token);
+      console.log(response);
+      navigate("/");
     } catch (error) {
       console.error("Error logging in:", error.response?.data || error.message);
       setError(
@@ -70,7 +71,7 @@ const LoginPage = () => {
               {error && <p className="text-red-500 text-center">{error}</p>}{" "}
               {/* Error message */}
               <span className="-mt-5 text-sm text-gray-600">
-                Forgot Password?
+                <a href="/forgot-pw">Forgot Password?</a>
               </span>
             </div>
             <div className="flex flex-col justify-center items-center">

@@ -1,84 +1,95 @@
 import React, { useState } from "react";
 import { useMutation } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
-import axios from "axios";
 
 const ForgotPasswordPage = () => {
   const [step, setStep] = useState(1);
   const [email, setEmail] = useState("");
   const [otp, setOtp] = useState("");
   const [newPassword, setNewPassword] = useState("");
-  const [error, setError] = useState("");
+  const [message, setMessage] = useState("");
   const navigate = useNavigate();
+  const [error, setError] = useState("");
 
-  // React Query mutation hooks
-  const sendOtpMutation = useMutation(
-    (email) =>
-      axios.post("http://localhost:5000/api/auth/forgot-password", { email }),
-    {
-      onSuccess: (data) => {
-        toast.success(data.message || "OTP sent to your email.");
-        setStep(2); // Move to Step 2
-        setError("");
-      },
-      onError: (error) => {
-        setError(error.response?.data?.message || "Something went wrong.");
-        toast.error(error.response?.data?.message || "Failed to send OTP");
-      },
+  // Fetcher function
+  const fetcher = async (url, options) => {
+    const response = await fetch(url, options);
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(errorData.message || "Something went wrong");
     }
-  );
+    return response.json();
+  };
 
-  const verifyOtpMutation = useMutation(
-    (data) => axios.post("http://localhost:5000/api/auth/verify-otp", data),
-    {
-      onSuccess: (data) => {
-        toast.success(
-          data.message || "OTP verified. Please enter a new password."
-        );
-        setStep(3); // Move to Step 3
-        setError("");
-      },
-      onError: (error) => {
-        setError(error.response?.data?.message || "Invalid OTP.");
-        toast.error(error.response?.data?.message || "Failed to verify OTP");
-      },
-    }
-  );
+  // Mutations
+  const sendOtpMutation = useMutation({
+    mutationFn: () =>
+      fetcher("http://localhost:5000/api/auth/forgot-password", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email }),
+      }),
+    onSuccess: (data) => {
+      setMessage(data.message);
+      setError("");
+      setStep(2); // Move to Step 2
+    },
+    onError: (err) => {
+      setError(err.message);
+      setMessage("");
+    },
+  });
 
-  const resetPasswordMutation = useMutation(
-    (data) => axios.post("http://localhost:5000/api/auth/reset-password", data),
-    {
-      onSuccess: (data) => {
-        toast.success(data.message || "Password has been reset.");
-        setError("");
-        navigate("/login");
-      },
-      onError: (error) => {
-        setError(error.response?.data?.message || "Something went wrong.");
-        toast.error(
-          error.response?.data?.message || "Failed to reset password"
-        );
-      },
-    }
-  );
+  const verifyOtpMutation = useMutation({
+    mutationFn: () =>
+      fetcher("http://localhost:5000/api/auth/verify-otp", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, otp }),
+      }),
+    onSuccess: (data) => {
+      setMessage(data.message);
+      setError("");
+      setStep(3); // Move to Step 3
+    },
+    onError: (err) => {
+      setError(err.message);
+      setMessage("");
+    },
+  });
 
-  // Handle email submission (Step 1)
+  const resetPasswordMutation = useMutation({
+    mutationFn: () =>
+      fetcher("http://localhost:5000/api/auth/reset-password", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, newPassword, otp }),
+      }),
+    onSuccess: (data) => {
+      setMessage(data.message);
+      setError("");
+      navigate("/login"); // Navigate to the login page
+    },
+    onError: (err) => {
+      setError(err.message);
+      setMessage("");
+    },
+  });
+
+  // Handlers
   const handleEmailSubmit = (e) => {
     e.preventDefault();
-    sendOtpMutation.mutate(email);
+    sendOtpMutation.mutate();
   };
 
-  // Handle OTP submission (Step 2)
   const handleOtpSubmit = (e) => {
     e.preventDefault();
-    verifyOtpMutation.mutate({ email, otp });
+    verifyOtpMutation.mutate();
   };
 
-  // Handle Password Reset (Step 3)
   const handlePasswordReset = (e) => {
     e.preventDefault();
-    resetPasswordMutation.mutate({ email, newPassword, otp });
+    resetPasswordMutation.mutate();
   };
 
   return (
@@ -90,6 +101,7 @@ const ForgotPasswordPage = () => {
           {step === 3 && "Reset Password"}
         </h1>
 
+        {message && <p className="text-green-500 mb-4">{message}</p>}
         {error && <p className="text-red-500 mb-4">{error}</p>}
 
         {step === 1 && (
