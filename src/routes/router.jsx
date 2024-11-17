@@ -14,6 +14,8 @@ import Dashboard from "../pages/admin/Dashboard";
 import AddProduct from "../pages/admin/product/AddProduct";
 import OrderDetail from "../pages/admin/order/OrderDetail";
 import ForgotPasswordPage from "../pages/user/ForgotPasswordPage";
+import ProductsPage from "../pages/user/ProductsPage";
+import ProductDetailsPage from "../pages/user/ProductDetailsPage";
 
 export const router = createBrowserRouter([
   { path: "/login", element: <LoginPage /> },
@@ -25,6 +27,8 @@ export const router = createBrowserRouter([
     children: [
       { path: "/", element: <Homepage /> },
       { path: "/about-us", element: <AboutUsPage /> },
+      { path: "/productDetail", element: <ProductDetailsPage /> },
+      { path: "/products", element: <ProductsPage /> },
     ],
   },
   {

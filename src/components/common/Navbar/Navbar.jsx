@@ -11,10 +11,14 @@ const Navbar = () => {
           <li className="nav-link">LOGO</li>
         </div>
         <div className="flex space-x-[3rem] mr-4">
-          <li className="nav-link">Home</li>
-          <li className="nav-link">Shop</li>
+          <li className="nav-link">
+            <a href="/">Home</a>
+          </li>
+          <li className="nav-link">
+            <a href="/products">Products</a>
+          </li>
           <li className="nav-link">About Us</li>
-          <li className="nav-link">Products</li>
+          <li className="nav-link">Cart</li>
           <li className="nav-link">Order Details</li>
           <li className="nav-link">Contact</li>
           <li className="nav-link">FAQ</li>

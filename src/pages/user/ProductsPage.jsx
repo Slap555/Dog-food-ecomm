@@ -1,7 +1,9 @@
 import React from "react";
-import imageE from "../../assets/E.jpg";
+import imageE from "../../assets/A.jpg";
+import ProductDetailsPage from "./ProductDetailsPage";
+import { useNavigate } from "react-router-dom";
 
-const ProductsSection = () => {
+const ProductsPage = () => {
   const products = [
     {
       name: "Lekali Dog chew",
@@ -28,13 +30,13 @@ const ProductsSection = () => {
       image: imageE,
     },
   ];
+  const navigate = useNavigate();
+  const handleClick = () => {
+    navigate("/productDetail");
+  };
   return (
-    <div>
-      <div className="w-full p-5">
-        <h1 className="text-[1.8rem] text-center font-bold">
-          These are some of our products
-        </h1>
-      </div>
+    <div className="flex flex-col h justify-center items-center gap-10 my-10">
+      <h1 className="text-[3rem] items-center">Our Products</h1>
       <div className="flex justify-center space-x-5">
         <div className="grid-cols-3 grid gap-10">
           {products.map((item, index) => (
@@ -49,7 +51,10 @@ const ProductsSection = () => {
                 />
               </div>
               <h1 className="text-[1.2rem]">{item.name}</h1>
-              <button className=" mb-4 bg-[#8EC0EF] py-1 px-2 rounded-md">
+              <button
+                className=" mb-4 bg-[#8EC0EF] py-1 px-2 rounded-md"
+                onClick={handleClick}
+              >
                 Know More
               </button>
             </div>
@@ -60,4 +65,4 @@ const ProductsSection = () => {
   );
 };
 
-export default ProductsSection;
+export default ProductsPage;
