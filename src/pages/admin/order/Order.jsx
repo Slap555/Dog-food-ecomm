@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Table from "../../../components/ui/table/Table";
 import { useFetchOrders } from "./order.api";
 import { Link } from "react-router-dom";
@@ -6,7 +6,12 @@ import { deliveryStatusClasses, deliveryStatusText } from "./schema";
 import { format } from "date-fns";
 
 const Orders = () => {
-  const { data: products, isLoading, isError, error } = useFetchOrders();
+  const { data: orders, isLoading, isError, error } = useFetchOrders();
+  const [filterStatus, setFilterStatus] = useState("");
+
+  const filteredOrders = filterStatus
+    ? orders.filter((order) => order.deliveryStatus === filterStatus)
+    : orders;
 
   const columns = [
     { header: "Customer Name", accessorKey: "fullname" },
@@ -51,8 +56,26 @@ const Orders = () => {
 
   return (
     <div>
-      <h2 className="text-2xl font-bold mb-4">Orders</h2>
-      <Table columns={columns} data={products} />
+      <div className="flex justify-between">
+        <h2 className="text-2xl font-bold mb-4">Orders</h2>
+        <div className="mb-4">
+          <label className="font-semibold mr-2">Filter by Status:</label>
+          <select
+            value={filterStatus}
+            onChange={(e) => setFilterStatus(e.target.value)}
+            className="border border-gray-300 rounded px-2 py-1"
+          >
+            <option value="">All</option>
+            <option value="1">Pending</option>
+            <option value="2">Processing</option>
+            <option value="3">Shipped</option>
+            <option value="4">Delivered</option>
+            <option value="5">Cancelled</option>
+          </select>
+        </div>
+      </div>
+
+      <Table columns={columns} data={filteredOrders} />
     </div>
   );
 };
