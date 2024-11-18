@@ -24,3 +24,37 @@ export const useFetchUserById = (id) => {
     enabled: !!id,
   });
 };
+
+export const useUpdateUser = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: async ({ id, userData }) => {
+      const response = await axiosInstance.put(`/user/${id}`, userData);
+      return response.data;
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries(["user"]);
+    },
+    onError: (error) => {
+      console.error("Error updating user:", error);
+    },
+  });
+};
+
+export const useDeleteUser = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: async (id) => {
+      const response = await axiosInstance.delete(`/user/${id}`);
+      return response.data;
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries(["user"]);
+    },
+    onError: (error) => {
+      console.error("Error deleting user:", error);
+    },
+  });
+};
