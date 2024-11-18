@@ -52,7 +52,7 @@ const Carousel = (props) => {
       </div>
 
       {/* Indicators at the bottom */}
-      <div className="absolute bottom-20 left-1/2 transform -translate-x-1/2 flex space-x-2">
+      <div className="absolute bottom-5 left-1/2 transform -translate-x-1/2 flex space-x-2">
         {props.images.map((_, index) => (
           <span
             key={index}
@@ -62,12 +62,6 @@ const Carousel = (props) => {
             }`}
           ></span>
         ))}
-      </div>
-
-      {/* Add to Cart & Buy Now buttons */}
-      <div className="flex gap-4 justify-center mt-4">
-        <button className="bg-white px-4 py-2 rounded-md">Add to cart</button>
-        <button className="bg-white px-4 py-2 rounded-md">Buy Now</button>
       </div>
     </div>
   );

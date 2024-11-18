@@ -9,6 +9,9 @@ const ProductDetailsPage = () => {
   const handleBack = () => {
     navigate("/products");
   };
+  const handleAddToCart = () => {
+    navigate("/cart");
+  };
   const images = [
     "https://via.placeholder.com/600x300/FF5733/FFFFFF?text=Slide+1",
     "https://via.placeholder.com/600x300/33FF57/FFFFFF?text=Slide+2",
@@ -21,6 +24,15 @@ const ProductDetailsPage = () => {
         <div className="flex flex-col w-[25rem] h-[28rem] bg-slate-500 ml-10">
           <h1 className="text-[2rem] text-center p-4">{title}</h1>
           <Carousel images={images} />
+          <div className="flex gap-4 justify-center mt-4">
+            <button
+              className="bg-white px-4 py-2 rounded-md"
+              onClick={handleAddToCart}
+            >
+              Add to cart
+            </button>
+            <button className="bg-white px-4 py-2 rounded-md">Buy Now</button>
+          </div>
         </div>
         <div className=" gap-10 flex w-[50rem] justify-evenly items-center h-[26rem] bg-slate-400">
           <div className="flex p-10 w-[20rem] h-[20rem] bg-gray-200 items-center ">

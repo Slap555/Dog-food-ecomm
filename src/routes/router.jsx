@@ -16,6 +16,7 @@ import OrderDetail from "../pages/admin/order/OrderDetail";
 import ForgotPasswordPage from "../pages/user/ForgotPasswordPage";
 import ProductsPage from "../pages/user/ProductsPage";
 import ProductDetailsPage from "../pages/user/ProductDetailsPage";
+import CartPage from "../pages/user/CartPage";
 
 export const router = createBrowserRouter([
   { path: "/login", element: <LoginPage /> },
@@ -29,6 +30,7 @@ export const router = createBrowserRouter([
       { path: "/about-us", element: <AboutUsPage /> },
       { path: "/productDetail", element: <ProductDetailsPage /> },
       { path: "/products", element: <ProductsPage /> },
+      { path: "/cart", element: <CartPage /> },
     ],
   },
   {
