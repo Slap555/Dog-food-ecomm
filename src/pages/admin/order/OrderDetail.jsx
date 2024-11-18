@@ -160,9 +160,7 @@ const OrderDetail = () => {
                       </td>
                       <td className="px-4 py-2">Rs. {item.productId.price}</td>
                       <td className="px-4 py-2">{item.quantity}</td>
-                      <td className="px-4 py-2">
-                        Rs. {item.quantity * item.productId.price}
-                      </td>
+                      <td className="px-4 py-2">Rs. {item.totalPrice}</td>
                     </tr>
                   ))}
                 </tbody>
@@ -170,8 +168,12 @@ const OrderDetail = () => {
                   <tr className="bg-gray-100">
                     <th className="px-4 py-2 text-left"></th>
                     <th></th>
-                    <th className="px-4 py-2 text-left">20</th>
-                    <th className="px-4 py-2 text-left">Rs. 2000</th>
+                    <th className="px-4 py-2 text-left">
+                      {order.totalQuantity}
+                    </th>
+                    <th className="px-4 py-2 text-left">
+                      Rs. {order.totalCost}
+                    </th>
                   </tr>
                 </tfoot>
               </table>

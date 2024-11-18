@@ -15,6 +15,7 @@ const Orders = () => {
 
   const columns = [
     { header: "Customer Name", accessorKey: "fullname" },
+    { header: "Quantity", accessorKey: "totalQuantity" },
     {
       header: "Delivery Status",
       accessorKey: "deliveryStatus",

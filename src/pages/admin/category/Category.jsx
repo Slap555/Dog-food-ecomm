@@ -1,161 +1,193 @@
 import React, { useState } from "react";
-import { useMutation } from "@tanstack/react-query";
-import { useNavigate } from "react-router-dom";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
+import {
+  useCreateCategory,
+  useDeleteCategory,
+  useFetchCategories,
+  useUpdateCategory,
+} from "./category.api";
+import Table from "../../../components/ui/table/Table";
+import Modal from "../../../components/ui/modal/Modal";
 import { toast } from "react-toastify";
-import axios from "axios";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
 
-const ForgotPasswordPage = () => {
-  const [step, setStep] = useState(1);
-  const [email, setEmail] = useState("");
-  const [otp, setOtp] = useState("");
-  const [newPassword, setNewPassword] = useState("");
-  const [error, setError] = useState("");
-  const navigate = useNavigate();
+const categorySchema = z.object({
+  name: z.string().min(1, "Name is required"),
+  description: z.string().optional(),
+});
 
-  // React Query mutation hooks
-  const sendOtpMutation = useMutation(
-    (email) =>
-      axios.post("http://localhost:5000/api/auth/forgot-password", { email }),
+const Category = () => {
+  const { data: products, isLoading, isError, error } = useFetchCategories();
+  const createMutation = useCreateCategory();
+  const deleteMutation = useDeleteCategory();
+  const updateMutation = useUpdateCategory();
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isEditing, setIsEditing] = useState(false);
+  const [currentCategory, setCurrentCategory] = useState(null);
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    setValue,
+    reset,
+  } = useForm({
+    resolver: zodResolver(categorySchema),
+  });
+
+  const columns = [
+    { header: "Name", accessorKey: "name" },
+    { header: "Description", accessorKey: "description" },
     {
-      onSuccess: (data) => {
-        toast.success(data.message || "OTP sent to your email.");
-        setStep(2); // Move to Step 2
-        setError("");
-      },
-      onError: (error) => {
-        setError(error.response?.data?.message || "Something went wrong.");
-        toast.error(error.response?.data?.message || "Failed to send OTP");
-      },
-    }
-  );
+      header: "Actions",
+      accessorKey: "actions",
+      cell: ({ row }) => (
+        <div className="flex space-x-2">
+          <button
+            onClick={() => handleEditCategory(row.original)}
+            className="bg-yellow-500 hover:bg-yellow-600 text-white font-semibold py-1 px-2 rounded-lg"
+          >
+            Edit
+          </button>
+          <button
+            onClick={() => handleDeleteCategory(row.original._id)}
+            className="bg-red-500 hover:bg-red-600 text-white font-semibold py-1 px-2 rounded-lg"
+          >
+            Delete
+          </button>
+        </div>
+      ),
+    },
+  ];
 
-  const verifyOtpMutation = useMutation(
-    (data) => axios.post("http://localhost:5000/api/auth/verify-otp", data),
-    {
-      onSuccess: (data) => {
-        toast.success(
-          data.message || "OTP verified. Please enter a new password."
-        );
-        setStep(3); // Move to Step 3
-        setError("");
-      },
-      onError: (error) => {
-        setError(error.response?.data?.message || "Invalid OTP.");
-        toast.error(error.response?.data?.message || "Failed to verify OTP");
-      },
-    }
-  );
-
-  const resetPasswordMutation = useMutation(
-    (data) => axios.post("http://localhost:5000/api/auth/reset-password", data),
-    {
-      onSuccess: (data) => {
-        toast.success(data.message || "Password has been reset.");
-        setError("");
-        navigate("/login");
-      },
-      onError: (error) => {
-        setError(error.response?.data?.message || "Something went wrong.");
-        toast.error(
-          error.response?.data?.message || "Failed to reset password"
-        );
-      },
-    }
-  );
-
-  // Handle email submission (Step 1)
-  const handleEmailSubmit = (e) => {
-    e.preventDefault();
-    sendOtpMutation.mutate(email);
+  const handleAddCategory = () => {
+    setIsModalOpen(true);
+    setIsEditing(false);
+    setCurrentCategory(null);
+    reset();
   };
 
-  // Handle OTP submission (Step 2)
-  const handleOtpSubmit = (e) => {
-    e.preventDefault();
-    verifyOtpMutation.mutate({ email, otp });
+  const handleEditCategory = (category) => {
+    setIsModalOpen(true);
+    setIsEditing(true);
+    setCurrentCategory(category);
+
+    setValue("name", category.name);
+    setValue("description", category.description);
   };
 
-  // Handle Password Reset (Step 3)
-  const handlePasswordReset = (e) => {
-    e.preventDefault();
-    resetPasswordMutation.mutate({ email, newPassword, otp });
+  const handleDeleteCategory = (categoryId) => {
+    deleteMutation.mutate(categoryId, {
+      onSuccess: () => {
+        toast.success("Category deleted successfully");
+      },
+      onError: (res) => {
+        toast.error(res.response.data.message || "Failed to delete");
+      },
+    });
   };
+
+  const onSubmit = (data) => {
+    if (isEditing && currentCategory) {
+      updateMutation.mutate(
+        { categoryId: currentCategory._id, updatedCategory: data },
+        {
+          onSuccess: (res) => {
+            setIsModalOpen(false);
+            toast.success(res.message || "Category updated successfully");
+            reset();
+          },
+          onError: (res) => {
+            toast.error(res.response.data.message || "Failed to update");
+          },
+        }
+      );
+    } else {
+      createMutation.mutate(data, {
+        onSuccess: (res) => {
+          setIsModalOpen(false);
+          toast.success(res.message || "Category created successfully");
+          reset();
+        },
+        onError: (res) => {
+          toast.error(res.response.data.message || "Failed to create");
+        },
+      });
+    }
+  };
+
+  if (isLoading) return <div>Loading...</div>;
+  if (isError) return <div>Error: {error.message}</div>;
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-gray-100">
-      <div className="bg-white shadow-md rounded-lg p-6 w-[400px]">
-        <h1 className="text-2xl font-semibold mb-4 text-center">
-          {step === 1 && "Validate Email"}
-          {step === 2 && "Enter OTP"}
-          {step === 3 && "Reset Password"}
-        </h1>
+    <div>
+      <div className="flex items-center justify-between mb-4">
+        <h2 className="text-2xl font-bold">Category</h2>
+        <button
+          onClick={handleAddCategory}
+          className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg"
+        >
+          <FontAwesomeIcon icon={faPlus} /> Category
+        </button>
+      </div>
+      <Table columns={columns} data={products} />
 
-        {error && <p className="text-red-500 mb-4">{error}</p>}
-
-        {step === 1 && (
-          <form onSubmit={handleEmailSubmit}>
-            <input
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              placeholder="Enter your email"
-              className="w-full border p-2 rounded-md mb-4"
-              required
-            />
-            <button
-              type="submit"
-              className="w-full bg-blue-500 text-white p-2 rounded-md"
-              disabled={sendOtpMutation.isLoading}
-            >
-              {sendOtpMutation.isLoading ? "Sending..." : "Send OTP"}
-            </button>
-          </form>
-        )}
-
-        {step === 2 && (
-          <form onSubmit={handleOtpSubmit}>
+      <Modal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        title={isEditing ? "Edit Category" : "Add New Category"}
+      >
+        <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+          <div>
+            <label className="block text-sm font-medium">Name</label>
             <input
               type="text"
-              value={otp}
-              onChange={(e) => setOtp(e.target.value)}
-              placeholder="Enter OTP"
-              className="w-full border p-2 rounded-md mb-4"
-              required
+              {...register("name")}
+              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"
             />
+            {errors.name && (
+              <p className="text-red-500 text-sm">{errors.name.message}</p>
+            )}
+          </div>
+          <div>
+            <label className="block text-sm font-medium">Description</label>
+            <textarea
+              {...register("description")}
+              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"
+            ></textarea>
+            {errors.description && (
+              <p className="text-red-500 text-sm">
+                {errors.description.message}
+              </p>
+            )}
+          </div>
+          <div className="flex justify-start space-x-2">
             <button
               type="submit"
-              className="w-full bg-blue-500 text-white p-2 rounded-md"
-              disabled={verifyOtpMutation.isLoading}
+              disabled={createMutation.isPending || updateMutation.isPending}
+              className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg disabled:bg-blue-400"
             >
-              {verifyOtpMutation.isLoading ? "Verifying..." : "Verify OTP"}
+              {isEditing ? "Update" : "Save"}
             </button>
-          </form>
-        )}
-
-        {step === 3 && (
-          <form onSubmit={handlePasswordReset}>
-            <input
-              type="password"
-              value={newPassword}
-              onChange={(e) => setNewPassword(e.target.value)}
-              placeholder="Enter new password"
-              className="w-full border p-2 rounded-md mb-4"
-              required
-            />
             <button
-              type="submit"
-              className="w-full bg-blue-500 text-white p-2 rounded-md"
-              disabled={resetPasswordMutation.isLoading}
+              type="button"
+              onClick={() => {
+                setIsModalOpen(false);
+                reset();
+              }}
+              className="bg-gray-500 hover:bg-gray-600 text-white font-semibold py-2 px-4 rounded-lg"
             >
-              {resetPasswordMutation.isLoading
-                ? "Resetting..."
-                : "Reset Password"}
+              Cancel
             </button>
-          </form>
-        )}
-      </div>
+          </div>
+        </form>
+      </Modal>
     </div>
   );
 };
 
-export default ForgotPasswordPage;
+export default Category;

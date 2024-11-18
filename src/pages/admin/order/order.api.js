@@ -13,7 +13,7 @@ export const useFetchOrders = () => {
   return useQuery({
     queryKey: ["orders"],
     queryFn: async () => {
-      const response = await axiosInstance.get("/orders");
+      const response = await axiosInstance.get("/orders/all");
       return response.data;
     },
   });
