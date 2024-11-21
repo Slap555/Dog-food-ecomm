@@ -81,14 +81,16 @@ const Category = () => {
   };
 
   const handleDeleteCategory = (categoryId) => {
-    deleteMutation.mutate(categoryId, {
-      onSuccess: () => {
-        toast.success("Category deleted successfully");
-      },
-      onError: (res) => {
-        toast.error(res.response.data.message || "Failed to delete");
-      },
-    });
+    if (window.confirm("Are you sure you want to delete this category?")) {
+      deleteMutation.mutate(categoryId, {
+        onSuccess: () => {
+          toast.success("Category deleted successfully");
+        },
+        onError: (res) => {
+          toast.error(res.response.data.message || "Failed to delete");
+        },
+      });
+    }
   };
 
   const onSubmit = (data) => {
