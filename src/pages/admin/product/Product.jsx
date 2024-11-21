@@ -10,14 +10,16 @@ const Product = () => {
   const deleteMutation = useDeleteProduct();
 
   const handleDeleteProduct = (productId) => {
-    deleteMutation.mutate(productId, {
-      onSuccess: () => {
-        toast.success("Product deleted successfully");
-      },
-      onError: (res) => {
-        toast.error(res.response.data.message || "Failed to delete");
-      },
-    });
+    if (window.confirm("Are you sure you want to delete this product?")) {
+      deleteMutation.mutate(productId, {
+        onSuccess: () => {
+          toast.success("Product deleted successfully");
+        },
+        onError: (res) => {
+          toast.error(res.response.data.message || "Failed to delete");
+        },
+      });
+    }
   };
 
   const columns = [

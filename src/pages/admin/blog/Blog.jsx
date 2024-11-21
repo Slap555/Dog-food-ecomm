@@ -86,18 +86,19 @@ const Blog = () => {
   };
 
   const handleDeleteBlog = (blogId) => {
-    deleteMutation.mutate(blogId, {
-      onSuccess: () => {
-        toast.success("Blog deleted successfully");
-      },
-      onError: (res) => {
-        toast.error(res.response.data.message || "Failed to delete");
-      },
-    });
+    if (window.confirm("Are you sure you want to delete this blog?")) {
+      deleteMutation.mutate(blogId, {
+        onSuccess: () => {
+          toast.success("Blog deleted successfully");
+        },
+        onError: (res) => {
+          toast.error(res.response.data.message || "Failed to delete");
+        },
+      });
+    }
   };
 
   const onSubmit = (data) => {
-    setUser("afasfdsfafaf");
     if (isEditing && currentBlog) {
       updateMutation.mutate(
         { blogId: currentBlog._id, updatedBlog: data },

@@ -16,6 +16,7 @@ export const useFetchOrders = () => {
       const response = await axiosInstance.get("/orders/all");
       return response.data;
     },
+    staleTime: 1000 * 60 * 1,
   });
 };
 
