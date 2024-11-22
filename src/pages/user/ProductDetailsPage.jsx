@@ -29,18 +29,25 @@ const ProductDetailsPage = () => {
 
   const handleAddToCart = () => {
     if (product && product._id) {
+      const quantity = 1;
+      const totalPrice = product.price * quantity;
+
       console.log("Adding to cart:", {
-        id: product._id, // Use _id instead of id
+        id: product._id,
         title: product.name,
         image: product.image,
-        total: product.price,
+        total: totalPrice,
       });
+
       addToCart({
-        id: product._id, // Use _id instead of id
-        title: product.name,
+        id: product._id,
+        name: product.name,
         image: product.image,
-        total: product.price,
+        quantity: product.quantity,
+        price: product.price,
+        total: totalPrice,
       });
+
       navigate("/cart");
     } else {
       console.error("Product ID (_id) is undefined");

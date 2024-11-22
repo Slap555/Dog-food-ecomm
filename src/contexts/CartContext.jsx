@@ -29,6 +29,7 @@ export const CartProvider = ({ children }) => {
     console.log("Updating localStorage with cartItems:", cartItems);
     localStorage.setItem("cartItems", JSON.stringify(cartItems));
   }, [cartItems]);
+  console.log(cartItems);
 
   const addToCart = (product) => {
     console.log("Adding to cart: ", product);
@@ -37,17 +38,30 @@ export const CartProvider = ({ children }) => {
       updateItemCount(existingProduct.id, existingProduct.count + 1);
     } else {
       setCartItems((prevItems) => {
-        const updatedItems = [...prevItems, { ...product, count: 1 }];
+        const updatedItems = [
+          ...prevItems,
+          { ...product, count: 1, total: product.price }, // Ensure total is initialized
+        ];
         console.log("Updated Cart: ", updatedItems);
         return updatedItems;
       });
     }
   };
 
+  const updateQuantity = (id, newQuantity) => {
+    setCartItems((prevItems) => {
+      return prevItems.map((item) =>
+        item.id === id
+          ? { ...item, count: newQuantity, total: item.price * newQuantity }
+          : item
+      );
+    });
+  };
+
   const updateItemCount = (id, count) => {
     setCartItems((prevItems) => {
       const updatedItems = prevItems.map((item) =>
-        item.id === id ? { ...item, count } : item
+        item.id === id ? { ...item, count, total: item.price * count } : item
       );
       return updatedItems;
     });
@@ -59,7 +73,13 @@ export const CartProvider = ({ children }) => {
 
   return (
     <CartContext.Provider
-      value={{ cartItems, addToCart, updateItemCount, removeFromCart }}
+      value={{
+        cartItems,
+        addToCart,
+        updateItemCount,
+        updateQuantity,
+        removeFromCart,
+      }}
     >
       {children}
     </CartContext.Provider>
