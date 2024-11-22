@@ -17,6 +17,7 @@ import ForgotPasswordPage from "../pages/user/ForgotPasswordPage";
 import ProductsPage from "../pages/user/ProductsPage";
 import ProductDetailsPage from "../pages/user/ProductDetailsPage";
 import CartPage from "../pages/user/CartPage";
+import CheckoutPage from "../pages/user/CheckoutPage";
 
 export const router = createBrowserRouter([
   { path: "/login", element: <LoginPage /> },
@@ -28,9 +29,11 @@ export const router = createBrowserRouter([
     children: [
       { path: "/", element: <Homepage /> },
       { path: "/about-us", element: <AboutUsPage /> },
-      { path: "/productDetail", element: <ProductDetailsPage /> },
+
       { path: "/products", element: <ProductsPage /> },
+      { path: "/productDetail/:id", element: <ProductDetailsPage /> },
       { path: "/cart", element: <CartPage /> },
+      { path: "/checkout", element: <CheckoutPage /> },
     ],
   },
   {
