@@ -1,6 +1,6 @@
 // src/contexts/OrderContext.jsx
 import React, { createContext, useContext, useState } from "react";
-import axiosInstance from "../utils/api/axios"; // Importing axiosInstance
+import axiosInstance from "../utils/api/axios";
 
 // Create context
 const OrderContext = createContext();
@@ -14,19 +14,30 @@ export const useOrder = () => {
 export const OrderProvider = ({ children }) => {
   const [orderData, setOrderData] = useState([]);
 
-  // Function to place an order using axiosInstance
+  // Function to place an order
   const placeOrder = async (order) => {
     try {
-      const response = await axiosInstance.post("/orders/place", order); // Use the axiosInstance to make a request
+      const response = await axiosInstance.post("/orders/place", order);
       console.log("Order placed successfully:", response.data);
-      setOrderData(order); // Update order data after placing order
+      setOrderData(order); // Update order data
     } catch (error) {
       console.error("Error placing order:", error);
     }
   };
 
+  // Function to fetch orders based on status
+  const fetchOrders = async (status) => {
+    try {
+      const response = await axiosInstance.get(`/orders?status=${status}`);
+      return response.data.orders; // Adjust the key based on API response
+    } catch (error) {
+      console.error(`Error fetching ${status} orders:`, error);
+      return []; // Return an empty array on error
+    }
+  };
+
   return (
-    <OrderContext.Provider value={{ orderData, placeOrder }}>
+    <OrderContext.Provider value={{ orderData, placeOrder, fetchOrders }}>
       {children}
     </OrderContext.Provider>
   );

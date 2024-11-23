@@ -18,6 +18,8 @@ const CheckoutPage = () => {
   const navigate = useNavigate();
   useLocalStorageKeyUpdater();
 
+  const total = cartItems.reduce((total, item) => total + item.total, 0);
+
   const calculateShippingFee = () => {
     return ["Kathmandu", "Lalitpur", "Bhaktapur"].includes(district)
       ? 100
@@ -94,7 +96,6 @@ const CheckoutPage = () => {
     "Udayapur",
   ];
   // Calculate total amount (cart total + shipping fee)
-  const total = cartItems.reduce((total, item) => total + item.total, 0);
 
   const handlePaymentMethodChange = (e) => {
     setPaymentMethod(e.target.value);
