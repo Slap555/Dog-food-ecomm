@@ -44,7 +44,7 @@ const CartPage = () => {
                 className="h-[80px] w-[80px] rounded-lg"
               />
               <span className="text-[22px] md:pr-10 w-[20rem]">
-                {item.title}
+                {item.name}
               </span>
               <div className="flex gap-2">
                 <button

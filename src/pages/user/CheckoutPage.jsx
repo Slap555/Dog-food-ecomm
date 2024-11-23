@@ -1,19 +1,22 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useCart } from "../../contexts/CartContext";
+import { useOrder } from "../../contexts/OrderContext";
 import esewaImg from "../../assets/esewa.png";
 import kahltiImg from "../../assets/khalti.webp";
 
 const CheckoutPage = () => {
   const { cartItems } = useCart();
+  const { placeOrder } = useOrder();
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
   const [address, setAddress] = useState("");
   const [district, setDistrict] = useState("");
   const [info, setInfo] = useState("");
-  const [paymentMethod, setPaymentMethod] = useState("cod"); // Default to Cash on Delivery
-  const [totalAmount, setTotalAmount] = useState(0);
+  const [paymentMethod, setPaymentMethod] = useState("cod");
   const navigate = useNavigate();
+
+  const [totalAmount, setTotalAmount] = useState(0);
 
   const calculateShippingFee = () => {
     return ["Kathmandu", "Lalitpur", "Bhaktapur"].includes(district)
@@ -21,10 +24,6 @@ const CheckoutPage = () => {
       : 200;
   };
 
-  const calculateTotal = () => {
-    const cartTotal = cartItems.reduce((total, item) => total + item.total, 0);
-    return cartTotal + calculateShippingFee();
-  };
   const districts = [
     "Achham",
     "Arghakhanchi",
@@ -100,14 +99,17 @@ const CheckoutPage = () => {
     setPaymentMethod(e.target.value);
   };
 
+  const calculateTotal = () =>
+    cartItems.reduce((total, item) => total + item.total, 0) +
+    calculateShippingFee();
+
   const handleCheckout = () => {
     if (!address || !fullName || !email || !district) {
       alert("Please provide all the necessary details.");
       return;
     }
 
-    // Proceed with the checkout process (you can send the data to your backend here)
-    console.log("Proceeding with the order:", {
+    const orderData = {
       products: cartItems,
       fullName,
       email,
@@ -115,11 +117,20 @@ const CheckoutPage = () => {
       district,
       info,
       paymentMethod,
-      totalAmount: calculateTotal(), // Use the function directly here
-    });
+      totalAmount: calculateTotal(),
+    };
 
-    // Redirect to a success page or order confirmation
-    navigate("/order-detail");
+    placeOrder.mutate(orderData, {
+      onSuccess: () => {
+        alert("Order placed successfully!");
+        console.log(orderData);
+        navigate("/order-detail");
+      },
+      onError: (error) => {
+        console.error("Error placing order:", error);
+        alert("Failed to place order. Please try again.");
+      },
+    });
   };
 
   return (
