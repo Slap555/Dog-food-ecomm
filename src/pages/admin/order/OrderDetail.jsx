@@ -11,6 +11,7 @@ import {
   paymentMethodText,
 } from "./schema";
 import { toast } from "react-toastify";
+import dogImage from "../../../assets/dogImage.png";
 
 const OrderDetail = () => {
   const { orderId } = useParams();
@@ -99,6 +100,10 @@ const OrderDetail = () => {
                       {order?.contact}
                     </p>
                     <p className="text-gray-600">
+                      <strong className="font-semibold">Email:</strong>{" "}
+                      {order?.email}
+                    </p>
+                    <p className="text-gray-600">
                       <strong className="font-semibold">District:</strong>{" "}
                       {order?.district}
                     </p>
@@ -152,15 +157,15 @@ const OrderDetail = () => {
                     <tr key={index}>
                       <td className="px-4 py-2 flex gap-2 items-center">
                         <img
-                          src={item.productId.image}
+                          src={item?.image || dogImage}
                           alt=""
                           className="w-12 h-12 object-contain"
                         />
-                        {item.productId.name}
+                        {item?.name}
                       </td>
-                      <td className="px-4 py-2">Rs. {item.productId.price}</td>
-                      <td className="px-4 py-2">{item.quantity}</td>
-                      <td className="px-4 py-2">Rs. {item.totalPrice}</td>
+                      <td className="px-4 py-2">Rs. {item?.price}</td>
+                      <td className="px-4 py-2">{item?.quantity}</td>
+                      <td className="px-4 py-2">Rs. {item?.totalPrice}</td>
                     </tr>
                   ))}
                 </tbody>

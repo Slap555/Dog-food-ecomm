@@ -14,11 +14,9 @@ const ImageUpload = ({ control, name, label, required }) => {
   const [preview, setPreview] = useState(null);
 
   useEffect(() => {
-    // Set initial preview if the value is a string (URL)
     if (typeof value === "string") {
       setPreview(value);
     } else if (value instanceof FileList && value[0]) {
-      // If value is a FileList, generate a preview
       setPreview(URL.createObjectURL(value[0]));
     }
   }, [value]);
@@ -26,8 +24,8 @@ const ImageUpload = ({ control, name, label, required }) => {
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     if (file) {
-      onChange(e.target.files); // Update field value with the new file
-      setPreview(URL.createObjectURL(file)); // Update preview
+      onChange(e.target.files);
+      setPreview(URL.createObjectURL(file));
     }
   };
 
@@ -35,8 +33,8 @@ const ImageUpload = ({ control, name, label, required }) => {
     e.preventDefault();
     const file = e.dataTransfer.files[0];
     if (file) {
-      onChange([file]); // Update field value with the new file
-      setPreview(URL.createObjectURL(file)); // Update preview
+      onChange([file]);
+      setPreview(URL.createObjectURL(file));
     }
   };
 

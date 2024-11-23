@@ -60,7 +60,11 @@ export const useUpdateProduct = () => {
 
   return useMutation({
     mutationFn: async ({ productId, formData }) => {
-      await axiosInstance.put(`/products/${productId}`, formData);
+      await axiosInstance.put(`/products/${productId}`, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
     },
     onSuccess: () => {
       queryClient.invalidateQueries(["products"]);
