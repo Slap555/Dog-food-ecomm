@@ -71,10 +71,27 @@ export const CartProvider = ({ children }) => {
     setCartItems((prevItems) => prevItems.filter((item) => item.id !== id));
   };
 
+  const useLocalStorageKeyUpdater = () => {
+    useEffect(() => {
+      const cartItems = JSON.parse(localStorage.getItem("cartItems"));
+      if (cartItems && cartItems.length > 0) {
+        const updatedCartItems = cartItems.map((item) => {
+          return {
+            ...item,
+            productId: item.id,
+            quantity: item.count,
+          };
+        });
+        localStorage.setItem("cartItems", JSON.stringify(updatedCartItems));
+      }
+    }, []);
+  };
+
   return (
     <CartContext.Provider
       value={{
         cartItems,
+        useLocalStorageKeyUpdater,
         addToCart,
         updateItemCount,
         updateQuantity,

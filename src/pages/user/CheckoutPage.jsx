@@ -6,17 +6,17 @@ import esewaImg from "../../assets/esewa.png";
 import kahltiImg from "../../assets/khalti.webp";
 
 const CheckoutPage = () => {
-  const { cartItems } = useCart();
+  const { cartItems, useLocalStorageKeyUpdater } = useCart();
   const { placeOrder } = useOrder();
-  const [fullName, setFullName] = useState("");
+  const [fullname, setFullname] = useState("");
   const [email, setEmail] = useState("");
+  const [contact, setContact] = useState("");
   const [address, setAddress] = useState("");
   const [district, setDistrict] = useState("");
   const [info, setInfo] = useState("");
   const [paymentMethod, setPaymentMethod] = useState("cod");
   const navigate = useNavigate();
-
-  const [totalAmount, setTotalAmount] = useState(0);
+  useLocalStorageKeyUpdater();
 
   const calculateShippingFee = () => {
     return ["Kathmandu", "Lalitpur", "Bhaktapur"].includes(district)
@@ -94,6 +94,7 @@ const CheckoutPage = () => {
     "Udayapur",
   ];
   // Calculate total amount (cart total + shipping fee)
+  const total = cartItems.reduce((total, item) => total + item.total, 0);
 
   const handlePaymentMethodChange = (e) => {
     setPaymentMethod(e.target.value);
@@ -104,33 +105,24 @@ const CheckoutPage = () => {
     calculateShippingFee();
 
   const handleCheckout = () => {
-    if (!address || !fullName || !email || !district) {
+    if (!address || !fullname || !email || !contact || !district) {
       alert("Please provide all the necessary details.");
       return;
     }
-
     const orderData = {
       products: cartItems,
-      fullName,
+      fullname,
       email,
       address,
+      contact,
       district,
       info,
       paymentMethod,
       totalAmount: calculateTotal(),
     };
+    console.log(orderData);
 
-    placeOrder.mutate(orderData, {
-      onSuccess: () => {
-        alert("Order placed successfully!");
-        console.log(orderData);
-        navigate("/order-detail");
-      },
-      onError: (error) => {
-        console.error("Error placing order:", error);
-        alert("Failed to place order. Please try again.");
-      },
-    });
+    placeOrder(orderData);
   };
 
   return (
@@ -167,13 +159,13 @@ const CheckoutPage = () => {
           <div className="flex flex-col gap-5 bg-slate-500 p-5 px-10 rounded-md">
             <h1 className="text-[1.5rem]">Your Information</h1>
             <div>
-              <label htmlFor="fullName" className="block text-lg font-medium">
+              <label htmlFor="fullname" className="block text-lg font-medium">
                 Full Name
               </label>
               <input
-                id="fullName"
-                value={fullName}
-                onChange={(e) => setFullName(e.target.value)}
+                id="fullname"
+                value={fullname}
+                onChange={(e) => setFullname(e.target.value)}
                 className="w-11/12 p-2 border rounded-md mt-2"
                 placeholder="Enter your full name"
               />
@@ -189,6 +181,19 @@ const CheckoutPage = () => {
                 onChange={(e) => setEmail(e.target.value)}
                 className="w-11/12 p-2 border rounded-md mt-2"
                 placeholder="Enter your email address"
+              />
+            </div>
+            <div>
+              <label htmlFor="contact" className="block text-lg font-medium">
+                Contact
+              </label>
+              <input
+                id="contact"
+                type="contact"
+                value={contact}
+                onChange={(e) => setContact(e.target.value)}
+                className="w-11/12 p-2 border rounded-md mt-2"
+                placeholder="Enter your contact"
               />
             </div>
             <div>
@@ -296,7 +301,7 @@ const CheckoutPage = () => {
         <h3 className="text-lg font-medium">Order Summary</h3>
         <div className="flex justify-between mt-2">
           <span>Total Price:</span>
-          <span>{calculateTotal()}</span>
+          <span>{total}</span>
         </div>
         <div className="flex justify-between mt-2">
           <span>Shipping Fee:</span>
