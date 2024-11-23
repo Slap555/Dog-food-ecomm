@@ -6,7 +6,19 @@ import { useNavigate } from "react-router-dom";
 const CartPage = () => {
   const { cartItems, updateItemCount, removeFromCart } = useCart();
   const navigate = useNavigate();
+
+  const handleQuantityChange = (id, newQuantity) => {
+    if (newQuantity < 1) return;
+    updateQuantity(id, newQuantity);
+  };
+
   const handleCheckout = () => {
+    const products = cartItems.map((item) => ({
+      productId: item.id,
+      quantity: item.count,
+    }));
+
+    console.log(products);
     navigate("/checkout");
   };
 
@@ -31,7 +43,9 @@ const CartPage = () => {
                 alt={item.title}
                 className="h-[80px] w-[80px] rounded-lg"
               />
-              <span className="text-[22px] md:pr-10">{item.title}</span>
+              <span className="text-[22px] md:pr-10 w-[20rem]">
+                {item.name}
+              </span>
               <div className="flex gap-2">
                 <button
                   onClick={() => updateItemCount(item.id, item.count - 1)}
@@ -47,7 +61,14 @@ const CartPage = () => {
                   <FontAwesomeIcon icon={faPlus} />
                 </button>
               </div>
-              <h1>Rs: {item.total * item.count}</h1>
+              <h1 className="w-[5rem]">Rs: {item.total}</h1>
+
+              <button
+                className="bg-slate-500"
+                onClick={() => removeFromCart(item.id)}
+              >
+                Remove
+              </button>
             </div>
           ))}
         </div>
@@ -55,11 +76,7 @@ const CartPage = () => {
           <div className="flex items-center">
             <h1 className="text-[22px] mr-2">Your Estimated Total:</h1>
             <span className="text-[18px]">
-              Rs:{" "}
-              {cartItems.reduce(
-                (total, item) => total + item.total * item.count,
-                0
-              )}
+              Rs: {cartItems.reduce((total, item) => total + item.total, 0)}
             </span>
           </div>
           <span>*Shipping Calculated at checkout*</span>

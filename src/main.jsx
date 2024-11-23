@@ -6,6 +6,7 @@ import { UserProvider } from "./contexts/UserContext.jsx";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import "react-toastify/dist/ReactToastify.css";
 import { CartProvider } from "./contexts/CartContext.jsx";
+import { OrderProvider } from "./contexts/OrderContext.jsx";
 
 const queryClient = new QueryClient();
 
@@ -14,7 +15,9 @@ createRoot(document.getElementById("root")).render(
     <QueryClientProvider client={queryClient}>
       <UserProvider>
         <CartProvider>
-          <App />
+          <OrderProvider>
+            <App />
+          </OrderProvider>
         </CartProvider>
       </UserProvider>
     </QueryClientProvider>
