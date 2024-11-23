@@ -2,6 +2,7 @@ import React from "react";
 import { Outlet } from "react-router-dom";
 import Navbar from "../components/common/Navbar/Navbar";
 import Footer from "../components/common/footer/Footer";
+import { ToastContainer } from "react-toastify";
 
 const UserLayout = () => {
   return (
@@ -11,6 +12,7 @@ const UserLayout = () => {
         <Outlet />
       </div>
       <Footer />
+      <ToastContainer position="bottom-right" />
     </>
   );
 };

@@ -122,7 +122,8 @@ const Category = () => {
     }
   };
 
-  if (isLoading) return <div>Loading...</div>;
+  if (isLoading)
+    return <div className="text-center text-gray-500">Loading...</div>;
   if (isError) return <div>Error: {error.message}</div>;
 
   return (

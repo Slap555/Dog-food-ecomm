@@ -65,6 +65,10 @@ const DaywiseOrdersChart = () => {
     setMonth(parseInt(e.target.value));
   };
 
+  const handleYearChange = (e) => {
+    setYear(parseInt(e.target.value));
+  };
+
   if (isLoading) return <p>Loading...</p>;
   if (isError) return <p>Failed to fetch data</p>;
 
@@ -72,20 +76,34 @@ const DaywiseOrdersChart = () => {
     <div className="bg-white rounded-lg shadow-sm p-4 w-full">
       <div className="flex items-center justify-between mb-4">
         <h1 className="text-base font-semibold">Order Monthwise</h1>
-        <select
-          id="month"
-          value={month}
-          onChange={handleMonthChange}
-          className="p-2 border rounded"
-        >
-          {Array.from({ length: 12 }, (_, i) => i + 1).map((monthValue) => (
-            <option key={monthValue} value={monthValue}>
-              {new Date(0, monthValue - 1).toLocaleString("default", {
-                month: "long",
-              })}
-            </option>
-          ))}
-        </select>
+        <div className="flex gap-2">
+          <select
+            id="year"
+            value={year}
+            onChange={handleYearChange}
+            className="p-2 border rounded"
+          >
+            {Array.from({ length: 5 }, (_, i) => currentYear - i).map((yr) => (
+              <option key={yr} value={yr}>
+                {yr}
+              </option>
+            ))}
+          </select>
+          <select
+            id="month"
+            value={month}
+            onChange={handleMonthChange}
+            className="p-2 border rounded"
+          >
+            {Array.from({ length: 12 }, (_, i) => i + 1).map((monthValue) => (
+              <option key={monthValue} value={monthValue}>
+                {new Date(0, monthValue - 1).toLocaleString("default", {
+                  month: "long",
+                })}
+              </option>
+            ))}
+          </select>
+        </div>
       </div>
       <div className="h-[300px] md:h-[400px]">
         <Line data={chartData} options={chartOptions} />

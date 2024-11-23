@@ -4,6 +4,7 @@ import Table from "../../../components/ui/table/Table";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import { toast } from "react-toastify";
 
 const Product = () => {
   const { data: products, isLoading, isError, error } = useFetchProducts();
