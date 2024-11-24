@@ -1,7 +1,7 @@
 .fadeInDropImage {
-  transition: transform 1.5s ease-in-out;
+  transition: transform 1.5s ease-out; /* Smooth zoom transition */
 }
 
 .fadeInDropImage.zoom {
-  transform: scale(1.1); /* Zoom in effect */
+  transform: scale(1.1); /* Zoom effect */
 }
