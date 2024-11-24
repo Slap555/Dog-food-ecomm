@@ -25,25 +25,27 @@ const RecentArticlesSection = () => {
   ];
 
   return (
-    <div className="flex flex-col justify-center">
-      <h1 className="text-center text-[2rem] mb-10">
+    <div className="flex flex-col justify-center px-4 md:px-10 py-4 md:py-10">
+      <h1 className="text-center md:text-[2rem] text-[1.5rem] mb-10 font-bold">
         Some of the Recent articles
       </h1>
-      <div className="flex justify-center ">
-        <div className="grid grid-cols-3 gap-20">
+      <div className="flex justify-center">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-10">
           {articles.map((item, index) => (
             <div
               key={index}
-              className=" bg-white rounded-md h-[22rem] p-5 flex flex-col w-[20rem] gap-4"
+              className="bg-white rounded-md p-5 flex flex-col w-full max-w-[20rem] md:gap-4 gap-1"
             >
               <div>
-                <h1 className="text-[1.4rem]">{item.title}</h1>
-                <span className="border-b-2 border-black">
+                <h1 className="md:text-[1.4rem] text-[1rem] font-semibold">
+                  {item.title}
+                </h1>
+                <span className="text-sm text-gray-600 border-b-2 border-black">
                   Posted on: {item.date}
                 </span>
               </div>
-              <span>{item.desc}</span>
-              <button className="bg-[#8EC0EF] rounded-lg px-2 py-1 w-[6rem] cursor-pointer">
+              <span className="text-sm text-gray-700">{item.desc}</span>
+              <button className="bg-[#8EC0EF] rounded-lg px-2 py-1 w-[6rem] cursor-pointer mt-4 hover:bg-[#6fa6c9]">
                 Read more
               </button>
             </div>

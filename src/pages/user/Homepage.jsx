@@ -132,7 +132,7 @@ const Homepage = () => {
         </div>
       </div>
 
-      <div className="flex flex-col md:flex-row items-center justify-center gap-10 md:gap-20 p-4 md:pb-12">
+      <div className="flex flex-col md:flex-row items-center justify-center gap-10 md:gap-20 p-4 ">
         <div className="flex justify-center md:justify-start items-center">
           <img
             src={imageA}
@@ -168,13 +168,11 @@ const Homepage = () => {
       <RecentArticlesSection />
 
       {/* short product showcase section */}
-      {/* <div className=" flex flex-col justify-center items-center">
+      <div className="flex flex-col justify-center items-center">
         <ProductsSection />
-        <button className="text-center my-6 bg-[#ffff]  p-2 w-40 rounded-md">
-          View More
-        </button>
-      </div> */}
-      {/* <ContactUsPage /> */}
+      </div>
+
+      <ContactUsPage />
     </div>
   );
 };
