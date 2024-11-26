@@ -58,14 +58,14 @@ const Homepage = () => {
 
       {/* short description about our company */}
       <div
-        className="flex justify-center items-center  py-16 px-5"
-        style={{
-          backgroundImage: `url(${image})`,
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-        }}
+        className="flex justify-center items-center  py-16 px-5 bg-[#0098DB] opacity-60"
+        // style={{
+        //   backgroundImage: `url(${image})`,
+        //   backgroundSize: "cover",
+        //   backgroundPosition: "center",
+        // }}
       >
-        <div className="flex justify-center text-center flex-col gap-8 w-[50rem] text-[#e7edf1] font-semibold">
+        <div className="flex justify-center text-center flex-col gap-8 w-[50rem] text-[#e7edf1] font-semibold ">
           <h1 className="flex justify-center md:text-[1.5rem] text-[1rem]">
             About <b className="ml-2"> Lekali Dog Chew Nepal</b>
           </h1>
