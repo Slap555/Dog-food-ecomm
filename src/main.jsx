@@ -12,6 +12,7 @@ const queryClient = new QueryClient();
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
+    {/* initializing react query */}
     <QueryClientProvider client={queryClient}>
       <UserProvider>
         <CartProvider>
