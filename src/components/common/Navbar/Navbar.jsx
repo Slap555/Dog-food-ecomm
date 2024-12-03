@@ -62,11 +62,7 @@ const Navbar = () => {
               Cart
             </a>
           </li>
-          <li>
-            <a href="/order-detail" className="hover:text-white">
-              Order Details
-            </a>
-          </li>
+
           <li>
             <FontAwesomeIcon icon={faMagnifyingGlass} className="text-lg" />
           </li>
@@ -83,7 +79,7 @@ const Navbar = () => {
                   icon={faCircleUser}
                   className="text-xl cursor-pointer"
                 />
-                <div className="hidden group-hover:block absolute right-0 mt-2 bg-white text-gray-800 shadow-lg rounded-md">
+                <div className="hidden group-hover:block absolute right-0  bg-white text-gray-800 shadow-lg rounded-md">
                   <a
                     href="/profile"
                     className="block px-4 py-2 hover:bg-gray-200"

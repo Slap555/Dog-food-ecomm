@@ -89,27 +89,6 @@ const PhotoSlider = ({ images }) => {
           ></button>
         ))}
       </div>
-
-      {/* Descriptions */}
-      <div
-        key={currentIndex}
-        className="absolute bottom-12 md:bottom-16 left-1/2 transform text-center animate-fadeInDrop"
-      >
-        <h1 className="text-white text-sm md:text-md font-semibold">
-          {descriptions[currentIndex].heading}
-        </h1>
-        <p className="text-white text-xs md:text-sm">
-          {descriptions[currentIndex].desc}
-        </p>
-        <button
-          className="mt-2 px-3 py-1.5 md:px-4 md:py-2 bg-blue-500 text-white rounded-lg text-xs md:text-sm"
-          onClick={() =>
-            alert(`You clicked the button for image ${currentIndex + 1}`)
-          }
-        >
-          Click Me
-        </button>
-      </div>
     </div>
   );
 };

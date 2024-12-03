@@ -4,6 +4,8 @@ import { useCart } from "../../contexts/CartContext";
 import { useOrder } from "../../contexts/OrderContext";
 import esewaImg from "../../assets/esewa.png";
 import kahltiImg from "../../assets/khalti.webp";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const CheckoutPage = () => {
   const { cartItems, useLocalStorageKeyUpdater } = useCart();
@@ -124,6 +126,17 @@ const CheckoutPage = () => {
     console.log(orderData);
 
     placeOrder(orderData);
+    placeOrder(orderData);
+
+    // Show success toast after placing order
+    toast.success("Order placed successfully!", {
+      position: "top-right",
+      autoClose: 3000, // Toast will disappear after 3 seconds
+      hideProgressBar: true,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+    });
   };
 
   return (

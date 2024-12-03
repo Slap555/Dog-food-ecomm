@@ -49,13 +49,20 @@ export const CartProvider = ({ children }) => {
   };
 
   const updateQuantity = (id, newQuantity) => {
-    setCartItems((prevItems) => {
-      return prevItems.map((item) =>
+    if (newQuantity < 1) return; // Prevent quantity from being less than 1
+
+    // Update the cart items with the new quantity and corresponding total
+    setCartItems((prevItems) =>
+      prevItems.map((item) =>
         item.id === id
-          ? { ...item, count: newQuantity, total: item.price * newQuantity }
+          ? {
+              ...item,
+              count: newQuantity,
+              total: item.price * newQuantity, // Recalculate the total based on the new quantity
+            }
           : item
-      );
-    });
+      )
+    );
   };
 
   const updateItemCount = (id, count) => {
@@ -86,6 +93,7 @@ export const CartProvider = ({ children }) => {
       }
     }, []);
   };
+  console.log(cartItems); // To check if the cart items are updated correctly
 
   return (
     <CartContext.Provider
