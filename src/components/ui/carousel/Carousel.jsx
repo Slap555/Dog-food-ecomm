@@ -34,35 +34,6 @@ const Carousel = (props) => {
           </div>
         ))}
       </div>
-
-      {/* Navigation buttons using flexbox */}
-      <div className="flex justify-between items-center absolute top-1/2 w-full px-4 transform -translate-y-1/2">
-        <button
-          onClick={goToPrevious}
-          className="bg-gray-800 text-white p-2 rounded-full"
-        >
-          &#60;
-        </button>
-        <button
-          onClick={goToNext}
-          className="bg-gray-800 text-white p-2 rounded-full"
-        >
-          &#62;
-        </button>
-      </div>
-
-      {/* Indicators at the bottom */}
-      <div className="absolute bottom-5 left-1/2 transform -translate-x-1/2 flex space-x-2">
-        {props.images.map((_, index) => (
-          <span
-            key={index}
-            onClick={() => goToSlide(index)}
-            className={`w-3 h-3 rounded-full cursor-pointer ${
-              currentIndex === index ? "bg-blue-500" : "bg-gray-400"
-            }`}
-          ></span>
-        ))}
-      </div>
     </div>
   );
 };

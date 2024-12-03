@@ -6,6 +6,7 @@ import {
   faBars,
   faTimes,
 } from "@fortawesome/free-solid-svg-icons";
+import logo from "../../../assets/logo.png";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -18,10 +19,19 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="bg-[#0098DB] z-[100px] text-[#e6f3f9]">
+    <nav
+      className=" z-[100px] text-[#e6f3f9]"
+      style={{
+        background: "rgb(157,182,204)",
+        background:
+          "linear-gradient(90deg, rgba(157,182,204,1) 0%, rgba(19,114,184,1) 0%, rgba(112,147,181,1) 0%, rgba(87,135,176,1) 0%, rgba(18,113,183,1) 25%, rgba(0,85,148,1) 98%)",
+      }}
+    >
       <div className="flex justify-between items-center max-w-full mx-auto p-4">
         {/* Logo */}
-        <div className="text-2xl font-bold">LOGO</div>
+        <div className="">
+          <img src={logo} className="w-[55px] h-[55px]" />
+        </div>
 
         {/* Hamburger Icon for Mobile */}
         <div
@@ -62,9 +72,10 @@ const Navbar = () => {
               Cart
             </a>
           </li>
-
           <li>
-            <FontAwesomeIcon icon={faMagnifyingGlass} className="text-lg" />
+            <a href="/order-detail" className="hover:text-white">
+              Order Details
+            </a>
           </li>
 
           {/* Profile Icon */}
@@ -80,15 +91,9 @@ const Navbar = () => {
                   className="text-xl cursor-pointer"
                 />
                 <div className="hidden group-hover:block absolute right-0  bg-white text-gray-800 shadow-lg rounded-md">
-                  <a
-                    href="/profile"
-                    className="block px-4 py-2 hover:bg-gray-200"
-                  >
-                    Profile
-                  </a>
                   <button
                     onClick={handleLogout}
-                    className="block px-4 py-2 w-full text-left hover:bg-gray-200"
+                    className="block px-4 py-2 w-full text-left hover:bg-gray-200 hover:rounded-md"
                   >
                     Logout
                   </button>

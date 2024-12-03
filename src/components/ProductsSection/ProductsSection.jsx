@@ -1,34 +1,29 @@
 import React from "react";
-import imageE from "../../assets/E.jpg";
+import image1 from "../../assets/dogfood1.webp";
+import image2 from "../../assets/dogfood2.webp";
+import image3 from "../../assets/dogfood3.webp";
+import { useNavigate } from "react-router-dom";
 
 const ProductsSection = () => {
   const products = [
     {
       name: "Lekali Dog chew",
-      image: imageE,
+      image: image1,
+    },
+    {
+      name: "Lekali Dog churpi",
+      image: image2,
     },
     {
       name: "Lekali Dog chew",
-      image: imageE,
-    },
-    {
-      name: "Lekali Dog chew",
-      image: imageE,
-    },
-    {
-      name: "Lekali Dog chew",
-      image: imageE,
-    },
-    {
-      name: "Lekali Dog chew",
-      image: imageE,
-    },
-    {
-      name: "Lekali Dog chew",
-      image: imageE,
+      image: image3,
     },
   ];
-
+  const navigate = useNavigate();
+  const handleNavigate = () => {
+    console.log("Navigating to /products");
+    navigate("/products");
+  };
   return (
     <div>
       <div className="w-full p-5">
@@ -58,7 +53,10 @@ const ProductsSection = () => {
         </div>
       </div>
       <div className="flex justify-center">
-        <button className="flex text-center my-6 bg-[#ffff] p-2 w-[100px] rounded-md sm:w-[100px] md:w-56 lg:w-64 items-center justify-center text-[0.9rem]">
+        <button
+          className="flex text-center my-6 bg-[#ffff] p-2 w-[100px] rounded-md sm:w-[100px] md:w-56 lg:w-64 items-center justify-center text-[0.9rem]"
+          onClick={handleNavigate}
+        >
           View More
         </button>
       </div>

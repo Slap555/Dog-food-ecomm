@@ -59,8 +59,8 @@ const ProductDetailsPage = () => {
 
   return (
     <div>
-      <div className="flex gap-20 items-center justify-center my-20">
-        <div className="flex flex-col w-[25rem] h-[28rem] bg-slate-500 ml-10">
+      <div className="flex h-screen gap-20 items-center justify-center ">
+        <div className="flex flex-col w-[25rem] h-[28rem] bg-[#1271b7] ml-10 rounded-md">
           <h1 className="text-[2rem] text-center p-4">{product.name}</h1>
           <Carousel
             images={

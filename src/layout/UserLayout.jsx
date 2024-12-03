@@ -1,8 +1,8 @@
 import React from "react";
 import { Outlet } from "react-router-dom";
-import Navbar from "../components/common/Navbar/Navbar";
 import Footer from "../components/common/footer/Footer";
 import { ToastContainer } from "react-toastify";
+import Navbar from "../components/common/navbar/Navbar";
 
 const UserLayout = () => {
   return (

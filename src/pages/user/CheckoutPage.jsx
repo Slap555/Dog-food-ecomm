@@ -137,14 +137,15 @@ const CheckoutPage = () => {
       pauseOnHover: true,
       draggable: true,
     });
+    navigate("/");
   };
 
   return (
-    <div className="container bg-white rounded-lg mx-auto p-10 my-2">
+    <div className="container bg-white rounded-lg mx-auto p-10 my-6">
       <h1 className="text-3xl font-bold">Proceed to Checkout</h1>
       <div className="flex justify-center items-center gap-52 p-5">
         <div className="w-1/2 p-5 px-10 flex flex-col gap-10">
-          <div className="bg-slate-500 p-5 px-10 mt-4 rounded-md">
+          <div className="bg-[#1271b7] p-5 px-10 mt-4 rounded-md">
             <h2 className="text-xl">Cart Summary</h2>
             <div>
               {cartItems.length > 0 ? (
@@ -170,7 +171,7 @@ const CheckoutPage = () => {
             </div>
           </div>
 
-          <div className="flex flex-col gap-5 bg-slate-500 p-5 px-10 rounded-md">
+          <div className="flex flex-col gap-5 bg-[#1271b7] p-5 px-10 rounded-md">
             <h1 className="text-[1.5rem]">Your Information</h1>
             <div>
               <label htmlFor="fullname" className="block text-lg font-medium">
@@ -257,7 +258,7 @@ const CheckoutPage = () => {
           </div>
         </div>
 
-        <div className="bg-slate-400 w-1/3 p-5 px-10 rounded-md mt-4">
+        <div className="bg-[#1271b7] w-1/3 p-5 px-10 rounded-md mt-4">
           <h3 className="text-[22px] font-medium">Payment Method</h3>
           <div className="border-b py-5">
             <div>

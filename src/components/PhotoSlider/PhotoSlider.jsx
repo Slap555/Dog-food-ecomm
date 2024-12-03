@@ -10,14 +10,6 @@ const PhotoSlider = ({ images }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isZoomed, setIsZoomed] = useState(false);
 
-  const descriptions = [
-    { heading: "Puffed", desc: "These are the pudd" },
-    { heading: "Balloons", desc: "Colorful and bright" },
-    { heading: "Nature", desc: "Beautiful scenic view" },
-    { heading: "Cityscape", desc: "A bustling urban area" },
-    { heading: "Sunset", desc: "A serene evening sky" },
-  ];
-
   const nextImage = () => {
     if (isZoomed) return; // Prevent multiple actions during zoom
     setIsZoomed(true);

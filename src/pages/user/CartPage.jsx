@@ -36,7 +36,7 @@ const CartPage = () => {
           {cartItems.map((item) => (
             <div
               key={`${item.id}-${item.count}`}
-              className="flex justify-between w-full rounded-lg bg-[#4580c9] mb-2 px-16 py-5 items-center"
+              className="flex justify-between w-full rounded-lg bg-[#1271b7] mb-2 px-16 py-5 items-center"
             >
               <img
                 src={item.image}
@@ -64,7 +64,7 @@ const CartPage = () => {
               <h1 className="w-[5rem]">Rs: {item.total}</h1>
 
               <button
-                className="bg-slate-500"
+                className="bg-red-600 p-1 rounded-md"
                 onClick={() => removeFromCart(item.id)}
               >
                 Remove

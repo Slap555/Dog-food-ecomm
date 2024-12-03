@@ -6,6 +6,7 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useState } from "react";
 import image from "../../assets/sky.jpg";
+import logo from "../../assets/logo.png";
 import {
   faFacebook,
   faInstagram,
@@ -35,22 +36,22 @@ const ContactUsPage = () => {
       <div className=" rounded-lg relative left-10 z-10 flex flex-col gap-10 bg-[#9ac3df] w-[15rem] h-[30rem]">
         <h1 className="text-[1.8rem] flex mt-5 justify-center">Contact Us</h1>
         <div className="flex flex-col gap-4">
-          <div className="flex items-center justify-center text-[1.2rem] gap-2">
+          <div className="flex items-center justify-center text-[1rem] gap-2">
             <FontAwesomeIcon icon={faMapPin} />
             <span>Kathmandu, Nepal</span>
           </div>
-          <div className="flex items-center justify-center text-[1.2rem] gap-2">
+          <div className="flex items-center justify-center text-[1rem] gap-2">
             <FontAwesomeIcon icon={faEnvelope} />
-            <span>Kathmandu, Nepal</span>
+            <span>lujachitrakar156@gmail.com</span>
           </div>
-          <div className="flex items-center justify-center text-[1.2rem] gap-2">
+          <div className="flex items-center justify-center text-[1rem] gap-2">
             <FontAwesomeIcon icon={faPhone} />
-            <span>Kathmandu, Nepal</span>
+            <span>9869030320</span>
           </div>
         </div>
         <div className="flex items-center justify-center text-[1.2rem] gap-2 ">
-          <img src={image} className="w-16 h-16 rounded-full" />
-          <span>COmpany name</span>
+          <img src={logo} className="w-16 h-16 rounded-full" />
+          <span>Lekali Dog Chew</span>
         </div>
         <div className="flex items-center justify-center text-[1.2rem] gap-2">
           <FontAwesomeIcon icon={faFacebook} />
