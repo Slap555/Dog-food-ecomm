@@ -2,7 +2,7 @@ import React from "react";
 import { Outlet } from "react-router-dom";
 import Footer from "../components/common/footer/Footer";
 import { ToastContainer } from "react-toastify";
-import Navbar from "../components/common/navbar/Navbar";
+import Navbar from "../components/common/Navbar/Navbar";
 
 const UserLayout = () => {
   return (
